@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ActivityScreen extends StatelessWidget {
 
   final List<String> activities = [
-    'ORDEREDS',
+    'ORDEREDdS',
     'CASH-IN',
     'SEND CREDIT'
   ];
