@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'order_screen.dart';
+import 'package:tickleapp/drinks_screen/caramel.dart';
+import 'package:tickleapp/drinks_screen/wmocha.dart';
+import '../drinks_screen/mocha.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -102,11 +105,11 @@ class _homeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    MenuItem(imagePath:'assets/mocha.jpg'),
-                    MenuItem(imagePath: 'assets/wmocha.jpg'),
-                    MenuItem(imagePath: 'assets/caramel.jpg'),
-                    MenuItem(imagePath: 'assets/cinnamon.jpg'),
-                    MenuItem(imagePath: 'assets/blueberrycheese.jpg'),
+                    MenuItem(imagePath:'assets/mocha.jpg', screen: MochaScreen()),
+                    MenuItem(imagePath: 'assets/wmocha.jpg', screen: WhiteMochaScreen()),
+                    MenuItem(imagePath: 'assets/caramel.jpg', screen: CaramelScreen(),),
+                    //MenuItem(imagePath: 'assets/cinnamon.jpg'),
+                    //MenuItem(imagePath: 'assets/blueberrycheese.jpg'),
                   ],
                 ),
               ),
@@ -152,8 +155,9 @@ class _homeScreenState extends State<HomeScreen> {
 
 class MenuItem extends StatelessWidget {
   final String imagePath;
+  final Widget screen;
 
-  MenuItem({required this.imagePath});
+  const MenuItem({Key? key, required this.imagePath, required this.screen}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +165,7 @@ class MenuItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OrderScreen()),
+          MaterialPageRoute(builder: (context) => screen),
         );
       },
       child: Container(
