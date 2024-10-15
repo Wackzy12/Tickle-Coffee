@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
-class OrderScreen extends StatefulWidget {
+class CaramelScreen extends StatefulWidget {
   @override
-  State<OrderScreen> createState() => _orderScreenState();
+  State<CaramelScreen> createState() => _caramelScreenState();
 }
 
-class _orderScreenState extends State<OrderScreen> {
+class _caramelScreenState extends State<CaramelScreen> {
 
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
+
+  bool isHotSelected = false;
+  bool isIcedSelected = false;
+  bool isRegularSelected = false;
+  bool isLargeSelected = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +34,7 @@ class _orderScreenState extends State<OrderScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/mocha.jpg'),
+                image: AssetImage('assets/caramel.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -45,7 +51,7 @@ class _orderScreenState extends State<OrderScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Mocha',
+                        'Caramel',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -115,41 +121,55 @@ class _orderScreenState extends State<OrderScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Hot Button
-                    Expanded(
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isHotSelected = !isHotSelected;
+                          isIcedSelected = false; // Deselect the other option
+                        });
+                      },
                       child: Container(
+                        width: 150, // Set the desired width
+                        height: 50,  // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: Color(0xFF112e12),
+                          color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Hot',
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                              color: isHotSelected ? Colors.white : Color(0xFF112e12),
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 20),
-                    // Iced Button
-                    Expanded(
+                    SizedBox(width: 20), // Space between the buttons
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isIcedSelected = !isIcedSelected;
+                          isHotSelected = false; // Deselect the other option
+                        });
+                      },
                       child: Container(
+                        width: 150, // Set the desired width
+                        height: 50,  // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: Colors.grey[300],
+                          color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Iced',
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
+                              color: isIcedSelected ? Colors.white : Color(0xFF112e12),
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -183,6 +203,7 @@ class _orderScreenState extends State<OrderScreen> {
                         ),
                       ),
                       Expanded(
+                        flex: 1,
                         child: Divider(
                           color: Colors.grey,
                           thickness: 2,
@@ -196,41 +217,55 @@ class _orderScreenState extends State<OrderScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Regular Button
-                    Expanded(
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isRegularSelected = !isRegularSelected;
+                          isLargeSelected = false; // Deselect the other option
+                        });
+                      },
                       child: Container(
+                        width: 150, // Set the desired width
+                        height: 50, // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: Colors.grey[300],
+                          color: isRegularSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Regular',
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
+                              color: isRegularSelected ? Colors.white : Color(0xFF112e12),
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 20),
-                    // Large Button
-                    Expanded(
+                    SizedBox(width: 20), // Space between buttons
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isLargeSelected = !isLargeSelected;
+                          isRegularSelected = false; // Deselect the other option
+                        });
+                      },
                       child: Container(
+                        width: 150, // Set the desired width
+                        height: 50, // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: Color(0xFF112e12),
+                          color: isLargeSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Large',
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                              color: isLargeSelected ? Colors.white : Color(0xFF112e12),
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
