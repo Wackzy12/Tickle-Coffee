@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class WhiteMochaScreen extends StatefulWidget {
+class ChaiScreen extends StatefulWidget {
   @override
-  State<WhiteMochaScreen> createState() => _whiteMochaScreenState();
+  State<ChaiScreen> createState() => _chaiScreenState();
 }
 
-class _whiteMochaScreenState extends State<WhiteMochaScreen> {
+class _chaiScreenState extends State<ChaiScreen> {
 
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
@@ -34,7 +34,7 @@ class _whiteMochaScreenState extends State<WhiteMochaScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/wmocha.jpg'),
+                image: AssetImage('assets/caramel.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,7 +51,7 @@ class _whiteMochaScreenState extends State<WhiteMochaScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'White Mocha',
+                        'Caramel',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _whiteMochaScreenState extends State<WhiteMochaScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'A rich, sweet blend of bold coffee, creamy white chocolate, and topped with whipped cream.',
+                        'Black tea with a mixture of aromatic spices, milk, and sweetener.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
