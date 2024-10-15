@@ -51,7 +51,7 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Pan Eu Chocolat ',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Cocoa, Sugar, Milk, Cocoa butter, and Vanilla.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

@@ -1,76 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Placeholder screens for navigation
-class ChangePasswordScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Change Password')),
-      body: Center(child: Text('Change Password Screen')),
-    );
-  }
-}
-
-class LanguageScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Language Settings')),
-      body: Center(child: Text('Language Screen')),
-    );
-  }
-}
-
-class AccountSettingsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Account Settings')),
-      body: Center(child: Text('Account Settings Screen')),
-    );
-  }
-}
-
-class PaymentMethodScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Payment Method')),
-      body: Center(child: Text('Payment Method Screen')),
-    );
-  }
-}
-
-class AboutAppScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('About App')),
-      body: Center(child: Text('About App Screen')),
-    );
-  }
-}
-
-class TermsAndConditionsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Terms & Conditions')),
-      body: Center(child: Text('Terms & Conditions Screen')),
-    );
-  }
-}
-
-class PrivacyPolicyScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Privacy Policy')),
-      body: Center(child: Text('Privacy Policy Screen')),
-    );
-  }
-}
-
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -79,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF112e12),
         automaticallyImplyLeading: false,
-      ),
+      )     ,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -134,59 +63,43 @@ class ProfileScreen extends StatelessWidget {
                     title: Text('Mode'),
                     subtitle: Text('Dark & Light'),
                     trailing: Switch(
-                      value: true, // Static for now
+                      value: true,
                       onChanged: (bool newValue) {
-                        // Do nothing for now
+                        // Handle mode change here
                       },
                     ),
                   ),
                   ListTile(
                     leading: Icon(Icons.lock, color: Color(0xFF112e12)),
                     title: Text('Change Password'),
+
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChangePasswordScreen(),
-                        ),
-                      );
+                      // Navigate to Change Password screen
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.language, color: Color(0xFF112e12)),
                     title: Text('Language'),
+
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LanguageScreen(),
-                        ),
-                      );
+                      // Navigate to Language screen
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.settings, color: Color(0xFF112e12)),
-                    title: Text('Account Settings'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AccountSettingsScreen(),
-                        ),
-                      );
-                    },
+                      leading: Icon(Icons.settings, color: Color(0xFF112e12)),
+                      title: Text('Account Settings'),
+
+                      onTap: () {
+                        // Navigate to Language screen
+                      }
                   ),
                   ListTile(
-                    leading: Icon(Icons.payment, color: Color(0xFF112e12)),
-                    title: Text('Payment Method'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PaymentMethodScreen(),
-                        ),
-                      );
-                    },
+                      leading: Icon(Icons.payment, color: Color(0xFF112e12)),
+                      title: Text('Payment Method'),
+
+                      onTap: () {
+
+                      }
                   ),
                 ],
               ),
@@ -204,60 +117,46 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Colors.black, // Change text color
                     ),
                   ),
                   ListTile(
                     leading: Icon(Icons.info, color: Color(0xFF112e12)),
                     title: Text('About App'),
+
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AboutAppScreen(),
-                        ),
-                      );
+                      // Navigate to About App screen
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.description, color: Color(0xFF112e12)),
                     title: Text('Terms & Conditions'),
+
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TermsAndConditionsScreen(),
-                        ),
-                      );
+                      // Navigate to Terms & Conditions screen
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.privacy_tip, color: Color(0xFF112e12)),
                     title: Text('Privacy Policy'),
+
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PrivacyPolicyScreen(),
-                        ),
-                      );
+                      // Navigate to Privacy Policy screen
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.share, color: Color(0xFF112e12)),
                     title: Text('Share This App'),
+
                     onTap: () {
-                      // Placeholder - you can handle sharing functionality here
-                      print('Share This App tapped');
+                      // Handle app sharing
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.logout, color: Color(0xFF112e12)),
                     title: Text('Log Out'),
                     onTap: () {
-                      // Placeholder for logout
-                      print('Log Out tapped');
-                      Navigator.pop(context); // Example of popping the current route
+
                     },
                   ),
                 ],
@@ -269,4 +168,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

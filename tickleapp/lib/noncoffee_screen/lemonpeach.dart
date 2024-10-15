@@ -51,7 +51,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Lemon Peach Tea',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

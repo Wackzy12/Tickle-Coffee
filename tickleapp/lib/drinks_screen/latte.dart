@@ -51,7 +51,7 @@ class _latteScreenState extends State<LatteScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Cafe Latte',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

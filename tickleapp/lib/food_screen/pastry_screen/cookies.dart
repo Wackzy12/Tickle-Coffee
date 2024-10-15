@@ -51,7 +51,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Cookies',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Flour, Sugar, Butter, Eggs, and Vanilla extract.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
