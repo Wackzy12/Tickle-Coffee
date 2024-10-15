@@ -59,30 +59,11 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.brightness_6, color: Color(0xFF112e12)),
-                    title: Text('Mode'),
-                    subtitle: Text('Dark & Light'),
-                    trailing: Switch(
-                      value: true,
-                      onChanged: (bool newValue) {
-                        // Handle mode change here
-                      },
-                    ),
-                  ),
-                  ListTile(
                     leading: Icon(Icons.lock, color: Color(0xFF112e12)),
                     title: Text('Change Password'),
 
                     onTap: () {
                       // Navigate to Change Password screen
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.language, color: Color(0xFF112e12)),
-                    title: Text('Language'),
-
-                    onTap: () {
-                      // Navigate to Language screen
                     },
                   ),
                   ListTile(
@@ -142,14 +123,6 @@ class ProfileScreen extends StatelessWidget {
 
                     onTap: () {
                       // Navigate to Privacy Policy screen
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.share, color: Color(0xFF112e12)),
-                    title: Text('Share This App'),
-
-                    onTap: () {
-                      // Handle app sharing
                     },
                   ),
                   ListTile(
