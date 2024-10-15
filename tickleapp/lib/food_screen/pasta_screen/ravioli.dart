@@ -68,7 +68,7 @@ class _ravioliScreenState extends State<RavioliScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Stuffed pasta, Cheese, Meat, Vegetables, and Cream-based sauce.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

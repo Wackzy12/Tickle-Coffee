@@ -68,7 +68,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Spaghetti noodles, Eggs, Pecorino Romano cheese, Guanciale, and Black pepper. ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

@@ -68,7 +68,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine,',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

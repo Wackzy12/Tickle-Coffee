@@ -68,7 +68,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Flat pasta sheets with meat sauce, Béchamel, and cheese.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
