@@ -68,7 +68,7 @@ class _mochaScreenState extends State<MochaScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'A rich, sweet blend of bold coffee, creamy chocolate, and topped with whipped cream.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

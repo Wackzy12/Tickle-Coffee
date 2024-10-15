@@ -68,7 +68,7 @@ class _caramelScreenState extends State<CaramelScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Espresso-based drink that combines espresso, steamed milk, and caramel syrup for a sweet, buttery flavor.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
