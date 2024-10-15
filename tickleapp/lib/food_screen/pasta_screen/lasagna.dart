@@ -51,7 +51,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Lasagna',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

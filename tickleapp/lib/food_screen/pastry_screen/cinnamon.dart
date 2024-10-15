@@ -51,7 +51,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Cinnamon Roll',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

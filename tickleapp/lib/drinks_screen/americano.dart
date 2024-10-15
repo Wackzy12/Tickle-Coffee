@@ -51,7 +51,7 @@ class _americanoScreenState extends State<AmericanoScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Americano',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

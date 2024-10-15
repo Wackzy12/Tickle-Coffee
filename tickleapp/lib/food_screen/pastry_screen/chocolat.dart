@@ -51,7 +51,7 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Pan Eu Chocolat ',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

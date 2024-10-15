@@ -51,7 +51,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Earl Grey Tea',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

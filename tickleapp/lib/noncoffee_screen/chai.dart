@@ -51,7 +51,7 @@ class _chaiScreenState extends State<ChaiScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Chai',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

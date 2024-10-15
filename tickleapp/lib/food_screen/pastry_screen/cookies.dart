@@ -51,7 +51,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Cookies',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
