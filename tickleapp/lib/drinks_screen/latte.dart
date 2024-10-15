@@ -34,7 +34,7 @@ class _latteScreenState extends State<LatteScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/latte.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -68,7 +68,7 @@ class _latteScreenState extends State<LatteScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Espresso-based drink made with espresso and steamed milk, typically topped with a small amount of milk foam.',
+                        'A latte is a smooth and creamy coffee made with a shot of espresso and steamed milk, resulting in a balanced blend of rich coffee flavor and mild sweetness.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
