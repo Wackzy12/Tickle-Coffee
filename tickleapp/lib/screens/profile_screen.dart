@@ -1,5 +1,76 @@
 import 'package:flutter/material.dart';
 
+// Placeholder screens for navigation
+class ChangePasswordScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Change Password')),
+      body: Center(child: Text('Change Password Screen')),
+    );
+  }
+}
+
+class LanguageScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Language Settings')),
+      body: Center(child: Text('Language Screen')),
+    );
+  }
+}
+
+class AccountSettingsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Account Settings')),
+      body: Center(child: Text('Account Settings Screen')),
+    );
+  }
+}
+
+class PaymentMethodScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Payment Method')),
+      body: Center(child: Text('Payment Method Screen')),
+    );
+  }
+}
+
+class AboutAppScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('About App')),
+      body: Center(child: Text('About App Screen')),
+    );
+  }
+}
+
+class TermsAndConditionsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Terms & Conditions')),
+      body: Center(child: Text('Terms & Conditions Screen')),
+    );
+  }
+}
+
+class PrivacyPolicyScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Privacy Policy')),
+      body: Center(child: Text('Privacy Policy Screen')),
+    );
+  }
+}
+
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -8,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF112e12),
         automaticallyImplyLeading: false,
-      )     ,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -61,26 +132,26 @@ class ProfileScreen extends StatelessWidget {
                   ListTile(
                     leading: Icon(Icons.lock, color: Color(0xFF112e12)),
                     title: Text('Change Password'),
-
                     onTap: () {
-                      // Navigate to Change Password screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangePasswordScreen(),
+                        ),
+                      );
                     },
                   ),
                   ListTile(
-                      leading: Icon(Icons.settings, color: Color(0xFF112e12)),
-                      title: Text('Account Settings'),
-
-                      onTap: () {
-                        // Navigate to Language screen
-                      }
-                  ),
-                  ListTile(
-                      leading: Icon(Icons.payment, color: Color(0xFF112e12)),
-                      title: Text('Payment Method'),
-
-                      onTap: () {
-
-                      }
+                    leading: Icon(Icons.payment, color: Color(0xFF112e12)),
+                    title: Text('Payment Method'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaymentMethodScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -98,38 +169,53 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, // Change text color
+                      color: Colors.black,
                     ),
                   ),
                   ListTile(
                     leading: Icon(Icons.info, color: Color(0xFF112e12)),
                     title: Text('About App'),
-
                     onTap: () {
-                      // Navigate to About App screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AboutAppScreen(),
+                        ),
+                      );
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.description, color: Color(0xFF112e12)),
                     title: Text('Terms & Conditions'),
-
                     onTap: () {
-                      // Navigate to Terms & Conditions screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TermsAndConditionsScreen(),
+                        ),
+                      );
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.privacy_tip, color: Color(0xFF112e12)),
                     title: Text('Privacy Policy'),
-
                     onTap: () {
-                      // Navigate to Privacy Policy screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrivacyPolicyScreen(),
+                        ),
+                      );
                     },
                   ),
+
                   ListTile(
                     leading: Icon(Icons.logout, color: Color(0xFF112e12)),
                     title: Text('Log Out'),
                     onTap: () {
-
+                      // Placeholder for logout
+                      print('Log Out tapped');
+                      Navigator.pop(context); // Example of popping the current route
                     },
                   ),
                 ],
@@ -141,3 +227,4 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
