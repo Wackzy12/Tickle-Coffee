@@ -1,4 +1,5 @@
-import 'dart:math';
+
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 class AuthService{
@@ -28,7 +29,7 @@ class AuthService{
     try{
       _auth.signOut();
     }catch (e){
-      print("Something went wrong");
+      print("Something went wrong, error: e");
     }
   }
 }
