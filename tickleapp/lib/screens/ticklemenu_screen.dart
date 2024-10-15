@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../drinks_screen/coffee_screen.dart';
+import '../food_screen/food_screen.dart';
+import '../noncoffee_screen/noncoffee_screen.dart';
 
 class MenuScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,16 +31,34 @@ class MenuScreen extends StatelessWidget {
             _buildMenuItem(
               imagePath: 'assets/coffee_menu.jpg',
               title: 'COFFEE',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CoffeeScreen()),
+                );
+              },
             ),
             SizedBox(height: 20),
             _buildMenuItem(
               imagePath: 'assets/lemonade_menu.jpg',
               title: 'NON-COFFEE',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NonCoffeeScreen()),
+                );
+              },
             ),
             SizedBox(height: 20),
             _buildMenuItem(
               imagePath: 'assets/pesto_menu.jpg',
               title: 'TO EAT',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ToEatScreen()),
+                );
+              },
             ),
           ],
         ),
@@ -46,24 +66,31 @@ class MenuScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem({required String imagePath, required String title}) {
-    return Row(
-      children: [
-        CircleAvatar(
-          radius: 100, // Decrease radius for smaller image
-          backgroundImage: AssetImage(imagePath),
-          backgroundColor: Colors.transparent,
-        ),
-        SizedBox(width: 20), // Space between the image and text
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black, // Adjusted text color for better contrast
-            fontWeight: FontWeight.bold, // Bolder font for emphasis
+  Widget _buildMenuItem({
+    required String imagePath,
+    required String title,
+    required VoidCallback onTap, // Add onTap callback
+  }) {
+    return GestureDetector(
+      onTap: onTap, // Trigger navigation when tapped
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 100, // Decrease radius for smaller image
+            backgroundImage: AssetImage(imagePath),
+            backgroundColor: Colors.transparent,
           ),
-        ),
-      ],
+          SizedBox(width: 20), // Space between the image and text
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.black, // Adjusted text color for better contrast
+              fontWeight: FontWeight.bold, // Bolder font for emphasis
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
