@@ -68,7 +68,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Pie crust, Apples, Sugar, Cinnamon, Nutmeg, and Butter.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

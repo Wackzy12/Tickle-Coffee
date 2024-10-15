@@ -68,7 +68,7 @@ class _croissantScreenState extends State<CroissantScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Butter, Flour, Yeast, Milk, and Sugar.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

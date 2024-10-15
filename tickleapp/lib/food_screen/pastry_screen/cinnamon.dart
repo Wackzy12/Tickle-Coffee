@@ -68,7 +68,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Available for Hot & Ice\nProvides various types of sizes,\nSuitable for relaxing time,\nself healing, etc.',
+                        'Dough, Cinnamon, Brown sugar, Butter, and Cream cheese frosting.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
