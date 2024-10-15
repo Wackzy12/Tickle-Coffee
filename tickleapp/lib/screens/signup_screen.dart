@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tickleapp/screens/auth_service.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -7,9 +8,19 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _signupScreenState extends State<SignUpScreen> {
+  final _auth = AuthService();
 
+  final _name = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
-
+  @override
+  void dispose() {
+    super.dispose();
+    _name.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +112,7 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _email,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -119,6 +131,7 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _password,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -182,7 +195,8 @@ class _signupScreenState extends State<SignUpScreen> {
             ),
             SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () {
+              onPressed: ()async {
+                await _signup();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -199,5 +213,11 @@ class _signupScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+  _signup() async{
+    final user = await _auth.createUserWithEmailandPassword(_email.text, _password.text);
+    if(user != null) {
+      print('User Created Successfully');
+    }
   }
 }

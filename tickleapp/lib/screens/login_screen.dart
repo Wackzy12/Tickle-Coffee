@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tickleapp/navigator.dart';
+import 'package:tickleapp/screens/auth_service.dart';
 import 'home_screen.dart';
 
 
@@ -10,6 +11,16 @@ class LoginScreen extends StatefulWidget {
 
 class _loginScreenState extends State<LoginScreen> {
 
+  final _auth = AuthService();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
 
 
   @override
@@ -39,6 +50,7 @@ class _loginScreenState extends State<LoginScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _email,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -57,6 +69,7 @@ class _loginScreenState extends State<LoginScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _password,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -82,7 +95,8 @@ class _loginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                await _login();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MainNavigator()),
@@ -99,5 +113,11 @@ class _loginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  _login() async{
+    final user = await _auth.logInWithEmailandPassword(_email.text, _password.text);
+    if(user != null) {
+      print('User Logged In');
+    }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1030007383174",
+    "project_id": "tickleapp-a458a",
+    "storage_bucket": "tickleapp-a458a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030007383174:android:74d2d2a6acab6b126c5d07",
+        "android_client_info": {
+          "package_name": "com.example.tickleapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4ny6qr6ghDNAuEv6At01rEHPSAlCUKuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
