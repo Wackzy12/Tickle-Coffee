@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-import 'mocha.dart';
+import 'carbonara.dart';
 
-class CoffeeScreen extends StatelessWidget {
+class PastaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Coffee'),
+        title: Text('Pasta Options'),
         backgroundColor: Color(0xFF112e12),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          _buildCoffeeItem(
+          _buildPastaItem(
             context,
-            title: 'Mocha',
-            description: 'A rich, sweet blend of bold coffee and creamy chocolate.',
-            imagePath: 'assets/mocha.jpg',
-            screen: MochaScreen(), // Navigate to MochaScreen
+            title: 'Carbonara',
+            description: 'Spaghetti noodles, Eggs, Pecorino Romano cheese, Guanciale, and Black pepper.',
+            imagePath: 'assets/carbonara.jpg', // Make sure to have an image for Carbonara
+            screen: CarbonaraScreen(), // Navigate to CarbonaraScreen
           ),
+          // Add other pasta items here
         ],
       ),
     );
   }
 
-  Widget _buildCoffeeItem(
+  Widget _buildPastaItem(
       BuildContext context, {
         required String title,
         required String description,

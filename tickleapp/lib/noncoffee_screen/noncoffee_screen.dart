@@ -1,35 +1,77 @@
 import 'package:flutter/material.dart';
+import 'chai.dart';
 
 class NonCoffeeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Non-Coffee'),
+        title: Text('Non-Coffee Options'),
         backgroundColor: Color(0xFF112e12),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            _buildMenuItem(title: 'Lemonade', description: 'Refreshing lemon drink.'),
-            _buildMenuItem(title: 'Iced Tea', description: 'Chilled tea with lemon or peach.'),
-            _buildMenuItem(title: 'Smoothie', description: 'Fruit-blended drink.'),
-            _buildMenuItem(title: 'Hot Chocolate', description: 'Warm milk with chocolate.'),
-          ],
-        ),
+        children: [
+          _buildNonCoffeeItem(
+            context,
+            title: 'Chai',
+            description: 'Black tea with aromatic spices, milk, and sweetener.',
+            imagePath: 'assets/chai.jpg', // Make sure to have an image for Chai
+            screen: ChaiScreen(), // Navigate to ChaiScreen
+          ),
+          // Add other non-coffee items here
+        ],
       ),
     );
   }
 
-  Widget _buildMenuItem({required String title, required String description}) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  Widget _buildNonCoffeeItem(
+      BuildContext context, {
+        required String title,
+        required String description,
+        required String imagePath,
+        required Widget screen,
+      }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
+        );
+      },
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(imagePath),
+            backgroundColor: Colors.transparent,
+          ),
+          SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      subtitle: Text(description),
-      leading: Icon(Icons.local_drink, color: Color(0xFF112e12)),
     );
   }
 }

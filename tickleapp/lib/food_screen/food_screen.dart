@@ -1,35 +1,85 @@
 import 'package:flutter/material.dart';
+import 'pasta_screen/pasta_screen.dart';
+import 'pastry_screen/pastry_screen.dart';
 
-class ToEatScreen extends StatelessWidget {
+class FoodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To Eat'),
+        title: Text('Food Menu'),
         backgroundColor: Color(0xFF112e12),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            _buildMenuItem(title: 'Pesto Pasta', description: 'Fresh basil and pine nut sauce.'),
-            _buildMenuItem(title: 'Caesar Salad', description: 'Classic salad with croutons and dressing.'),
-            _buildMenuItem(title: 'Club Sandwich', description: 'Triple-layered sandwich with ham and cheese.'),
-            _buildMenuItem(title: 'Chocolate Cake', description: 'Rich and moist chocolate cake.'),
-          ],
-        ),
+        children: [
+          _buildFoodItem(
+            context,
+            title: 'Pasta',
+            description: 'Delicious pasta with rich sauces.',
+            imagePath: 'assets/pasta.jpg',
+            screen: PastaScreen(), // Navigate to PastaScreen
+          ),
+          SizedBox(height: 20),
+          _buildFoodItem(
+            context,
+            title: 'Pastries',
+            description: 'Freshly baked pastries and sweets.',
+            imagePath: 'assets/pastries.jpg',
+            screen: PastryScreen(), // Navigate to PastriesScreen
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildMenuItem({required String title, required String description}) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  Widget _buildFoodItem(
+      BuildContext context, {
+        required String title,
+        required String description,
+        required String imagePath,
+        required Widget screen,
+      }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
+        );
+      },
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(imagePath),
+            backgroundColor: Colors.transparent,
+          ),
+          SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      subtitle: Text(description),
-      leading: Icon(Icons.restaurant, color: Color(0xFF112e12)),
     );
   }
 }
