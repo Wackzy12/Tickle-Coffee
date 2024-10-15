@@ -34,7 +34,7 @@ class _americanoScreenState extends State<AmericanoScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/americano.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

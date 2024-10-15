@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
-import 'pasta_screen/pasta_screen.dart';
-import 'pastry_screen/pastry_screen.dart';
+import 'applepie.dart';
 
-class FoodScreen extends StatelessWidget {
+class PastryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Food Menu'),
+        title: Text('Pastry Options'),
         backgroundColor: Color(0xFF112e12),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          _buildFoodItem(
+          _buildPastryItem(
             context,
-            title: 'Pasta',
-            description: 'Delicious pasta with rich sauces.',
-            imagePath: 'assets/pasta.jpg',
-            screen: PastaScreen(), // Navigate to PastaScreen
+            title: 'Apple Pie',
+            description: 'Pie crust, Apples, Sugar, Cinnamon, Nutmeg, and Butter.',
+            imagePath: 'assets/apple_pie.jpg', // Make sure to have an image for Apple Pie
+            screen: ApplepieScreen(), // Navigate to ApplepieScreen
           ),
-          SizedBox(height: 20),
-          _buildFoodItem(
-            context,
-            title: 'Pastries',
-            description: 'Freshly baked pastries and sweets.',
-            imagePath: 'assets/pastries.jpg',
-            screen: PastryScreen(), // Navigate to PastriesScreen
-          ),
+          // Add other pastry items here
         ],
       ),
     );
   }
 
-  Widget _buildFoodItem(
+  Widget _buildPastryItem(
       BuildContext context, {
         required String title,
         required String description,

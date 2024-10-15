@@ -56,7 +56,7 @@ class MenuScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ToEatScreen()),
+                  MaterialPageRoute(builder: (context) => FoodScreen()),
                 );
               },
             ),
