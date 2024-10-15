@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'AboutApp_screen.dart';
+import 'TermsAndConditions_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -123,17 +125,21 @@ class ProfileScreen extends StatelessWidget {
                   ListTile(
                     leading: Icon(Icons.info, color: Color(0xFF112e12)),
                     title: Text('About App'),
-
                     onTap: () {
-                      // Navigate to About App screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutAppScreen()),
+                      );
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.description, color: Color(0xFF112e12)),
                     title: Text('Terms & Conditions'),
-
                     onTap: () {
-                      // Navigate to Terms & Conditions screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TermsAndConditionsScreen()),
+                      );
                     },
                   ),
                   ListTile(
