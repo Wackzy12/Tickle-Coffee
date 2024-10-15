@@ -51,7 +51,7 @@ class _matchaScreenState extends State<MatchaScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Matcha Latte',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

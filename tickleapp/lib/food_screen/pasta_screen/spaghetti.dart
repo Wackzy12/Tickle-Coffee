@@ -51,7 +51,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Spaghetti Bolognese',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

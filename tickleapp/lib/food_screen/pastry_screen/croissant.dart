@@ -51,7 +51,7 @@ class _croissantScreenState extends State<CroissantScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Caramel',
+                        'Croissant',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
