@@ -44,7 +44,7 @@ class AboutAppScreen extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Developed by: Your Company Name',
+                'Developed by: Tickle Coffee',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black,
