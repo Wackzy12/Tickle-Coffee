@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tickleapp/navigator.dart';
 import 'package:tickleapp/auth_screens/auth_service.dart';
 import '../screens/home_screen.dart';
+import 'forgot_password.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +23,53 @@ class _loginScreenState extends State<LoginScreen> {
     _email.dispose();
     _password.dispose();
   }
+  
 
+  Future<bool> logIn() async {
+    if (_email.text.isEmpty || _password.text.isEmpty) {
+      _showErrorDialog('Please fill in all fields');
+      return false;
+    }
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email.text.trim(), password: _password.text.trim());
+      return true;
+    } on FirebaseAuthException catch (e) {
+        _showErrorDialog('You need to input the correct email address or password to proceed. Please try again or reset your password by selecting "forgot password" in the next screen');
+    } catch (e) {
+      _showErrorDialog('An error occurred. Please try again.');
+    }
+
+    return false;
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text('Uh-oh the email or password is incorrect',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.bold),
+          ),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Color(0xFF112e12),
+                foregroundColor: Colors.white
+              ),
+              child: Text('Try Again',
+              style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,19 +136,29 @@ class _loginScreenState extends State<LoginScreen> {
             Container(
               padding: EdgeInsets.only(left: 200.0),
               alignment: Alignment.center,
-              child: Text(
-                'Forgot Password?',
-                style: TextStyle(fontSize: 16, color: Colors.black),
+              child: GestureDetector(
+                onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgotPassword()),
+                    );
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
               ),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await _login();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MainNavigator()),
-                );
+                bool success = await logIn();
+                if (success){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainNavigator()),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(350, 40),
@@ -113,11 +171,5 @@ class _loginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-  _login() async{
-    final user = await _auth.logInWithEmailandPassword(_email.text, _password.text);
-    if(user != null) {
-      print('User Logged In');
-    }
   }
 }
