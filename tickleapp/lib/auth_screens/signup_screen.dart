@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tickleapp/screens/auth_service.dart';
+import 'package:tickleapp/auth_screens/auth_service.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -10,17 +14,106 @@ class SignUpScreen extends StatefulWidget {
 class _signupScreenState extends State<SignUpScreen> {
   final _auth = AuthService();
 
-  final _name = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _confirmPassword = TextEditingController();
+  final _phone = TextEditingController();
+
 
   @override
   void dispose() {
     super.dispose();
-    _name.dispose();
+    _firstName.dispose();
+    _lastName.dispose();
     _email.dispose();
     _password.dispose();
+    _confirmPassword.dispose();
+    _phone.dispose();
   }
+
+  Future<bool> signUp() async {
+    if (_firstName.text.isEmpty ||
+        _lastName.text.isEmpty ||
+        _email.text.isEmpty ||
+        _password.text.isEmpty ||
+        _confirmPassword.text.isEmpty ||
+        _phone.text.isEmpty) {
+      _showErrorDialog('Please fill in all fields');
+      return false;
+    }
+
+    if (_phone.text.trim().length != 10) {
+      _showErrorDialog('Invalid phone number');
+      return false;
+    }
+
+    if (!passwordConfirmed()) {
+      _showErrorDialog('Passwords do not match');
+      return false;
+    }
+
+    try {
+
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _email.text.trim(),
+        password: _password.text.trim(),
+      );
+
+      await addUserDetails(
+        _firstName.text.trim(),
+        _lastName.text.trim(),
+        _email.text.trim(),
+        _phone.text.trim(),
+      );
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        _showErrorDialog('This email already exists.');
+      } else if (e.code == 'invalid-email') {
+        _showErrorDialog('Invalid email format.');
+      } else {
+        _showErrorDialog('Error during sign up: ${e.message}');
+      }
+      return false;
+    } catch (e) {
+      _showErrorDialog('Error during sign up: $e');
+      return false;
+    }
+  }
+
+  Future addUserDetails(String firstName, String lastName, String email, String phone) async {
+    await FirebaseFirestore.instance.collection('Users').add({
+      'first name': firstName,
+      'last name': lastName,
+      'email': email,
+      'phone': phone,
+    });
+  }
+
+  bool passwordConfirmed() {
+    return _password.text.trim() == _confirmPassword.text.trim();
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text('Sign Up Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Okay'),
+          )
+        ],
+      )
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +160,7 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _firstName,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -85,6 +179,7 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _lastName,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -150,6 +245,7 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _confirmPassword,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -168,6 +264,7 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(
               width: 350, height: 40,
               child: TextField(
+                controller: _phone,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   prefixIcon: Padding(
@@ -196,11 +293,13 @@ class _signupScreenState extends State<SignUpScreen> {
             SizedBox(height: 30),
             ElevatedButton(
               onPressed: ()async {
-                await _signup();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
+                bool success = await signUp();
+                if (success){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(350, 40),
@@ -213,11 +312,5 @@ class _signupScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-  _signup() async{
-    final user = await _auth.createUserWithEmailandPassword(_email.text, _password.text);
-    if(user != null) {
-      print('User Created Successfully');
-    }
   }
 }
