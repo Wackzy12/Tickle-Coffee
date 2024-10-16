@@ -34,7 +34,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/earlgrey.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

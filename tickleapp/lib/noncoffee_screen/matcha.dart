@@ -34,7 +34,7 @@ class _matchaScreenState extends State<MatchaScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/matcha.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

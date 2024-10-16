@@ -34,7 +34,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/lemonpeach.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

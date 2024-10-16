@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'chai.dart';
+import 'earlgrey.dart';
+import 'hibiscus.dart';
+import 'lemonpeach.dart';
+import 'matcha.dart';
 
 class NonCoffeeScreen extends StatelessWidget {
   @override
@@ -19,11 +23,40 @@ class NonCoffeeScreen extends StatelessWidget {
             imagePath: 'assets/chai.jpg', // Make sure to have an image for Chai
             screen: ChaiScreen(), // Navigate to ChaiScreen
           ),
-          // Add other non-coffee items here
+          _buildNonCoffeeItem(
+            context,
+            title: 'Earl Grey Tea',
+            description: 'Fragrant black tea flavored with oil from the rind of bergamot oranges, giving it a distinctive citrus aroma and flavor.',
+            imagePath: 'assets/earlgrey.jpg', // Make sure to have an image for Earl Grey
+            screen: EarlgreyScreen(), // Navigate to EarlGreyScreen
+          ),
+          _buildNonCoffeeItem(
+            context,
+            title: 'Hibiscus Tea',
+            description: 'Herbal tea made from the dried petals of the hibiscus flower served with lemon or ginger.',
+            imagePath: 'assets/hibiscus.jpg', // Make sure to have an image for Hibiscus
+            screen: HibiscusScreen(), // Navigate to HibiscusScreen
+          ),
+          _buildNonCoffeeItem(
+            context,
+            title: 'Lemon Peach Tea',
+            description: 'A refreshing beverage made green tea with fresh lemon juice and peach flavor or slices.',
+            imagePath: 'assets/lemonpeach.jpg', // Make sure to have an image for Lemon Peach
+            screen: LemonpeachScreen(), // Navigate to LemonPeachScreen
+          ),
+          _buildNonCoffeeItem(
+            context,
+            title: 'Matcha Latte',
+            description: 'Made by combining matcha powder with steamed milk.',
+            imagePath: 'assets/matcha.jpg', // Make sure to have an image for Matcha
+            screen: MatchaScreen(), // Navigate to MatchaScreen
+          ),
         ],
       ),
     );
   }
+}
+
 
   Widget _buildNonCoffeeItem(
       BuildContext context, {
@@ -74,4 +107,3 @@ class NonCoffeeScreen extends StatelessWidget {
       ),
     );
   }
-}

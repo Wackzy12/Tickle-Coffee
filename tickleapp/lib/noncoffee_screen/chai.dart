@@ -34,7 +34,7 @@ class _chaiScreenState extends State<ChaiScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/chai.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

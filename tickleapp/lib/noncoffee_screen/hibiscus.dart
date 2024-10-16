@@ -34,7 +34,7 @@ class _hibiscusScreenState extends State<HibiscusScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/hibiscus.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
