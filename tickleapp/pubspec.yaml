@@ -74,6 +74,15 @@ flutter:
     - assets/pesto_menu.jpg
     - assets/coffee_menu.jpg
     - assets/lemonade_menu.jpg
+    - assets/latte.jpg
+    - assets/americano.jpg
+    - assets/chai.jpg
+    - assets/earlgrey.jpg
+    - assets/hibiscus.jpg
+    - assets/lemonpeach.jpg
+    - assets/matcha.jpg
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -10,8 +10,6 @@ class _cookiesScreenState extends State<CookiesScreen> {
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
-  bool isHotSelected = false;
-  bool isIcedSelected = false;
   bool isRegularSelected = false;
   bool isLargeSelected = false;
 
@@ -86,99 +84,6 @@ class _cookiesScreenState extends State<CookiesScreen> {
                   ),
                 ),
 
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          "Select Type",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Coffee Type Selection (Hot / Iced)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isHotSelected = !isHotSelected;
-                          isIcedSelected = false; // Deselect the other option
-                        });
-                      },
-                      child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        decoration: BoxDecoration(
-                          color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Hot',
-                            style: TextStyle(
-                              color: isHotSelected ? Colors.white : Color(0xFF112e12),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 20), // Space between the buttons
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isIcedSelected = !isIcedSelected;
-                          isHotSelected = false; // Deselect the other option
-                        });
-                      },
-                      child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        decoration: BoxDecoration(
-                          color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Iced',
-                            style: TextStyle(
-                              color: isIcedSelected ? Colors.white : Color(0xFF112e12),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
 
                 // Separator between Select Type and Select Size
                 Padding(

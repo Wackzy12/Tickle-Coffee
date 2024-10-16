@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'applepie.dart';
+import 'chocolat.dart';
+import 'cinnamon.dart';
+import 'cookies.dart';
+import 'croissant.dart';
+
 
 class PastryScreen extends StatelessWidget {
   @override
@@ -19,11 +24,39 @@ class PastryScreen extends StatelessWidget {
             imagePath: 'assets/apple_pie.jpg', // Make sure to have an image for Apple Pie
             screen: ApplepieScreen(), // Navigate to ApplepieScreen
           ),
-          // Add other pastry items here
+          _buildPastryItem(
+            context,
+            title: 'Pan Eu Chocolat ',
+            description: 'Cocoa, Sugar, Milk, Cocoa butter, and Vanilla.',
+            imagePath: 'assets/chocolat.jpg', // Make sure to have an image for Chocolat
+            screen: ChocolatScreen(), // Navigate to ChocolatScreen
+          ),
+          _buildPastryItem(
+            context,
+            title: 'Cinnamon Roll',
+            description: 'Dough, Cinnamon, Brown sugar, Butter, and Cream cheese frosting.',
+            imagePath: 'assets/cinnamon.jpg', // Make sure to have an image for Cinnamon Roll
+            screen: CinnamonScreen(), // Navigate to CinnamonScreen
+          ),
+          _buildPastryItem(
+            context,
+            title: 'Cookies',
+            description: 'Flour, Sugar, Butter, Eggs, and Vanilla extract.',
+            imagePath: 'assets/cookies.jpg', // Make sure to have an image for Cookies
+            screen: CookiesScreen(), // Navigate to CookiesScreen
+          ),
+          _buildPastryItem(
+            context,
+            title: 'Croissant',
+            description: 'Butter, Flour, Yeast, Milk, and Sugar.',
+            imagePath: 'assets/croissant.jpg', // Make sure to have an image for Croissant
+            screen: CroissantScreen(), // Navigate to CroissantScreen
+          ),
         ],
       ),
     );
   }
+}
 
   Widget _buildPastryItem(
       BuildContext context, {
@@ -74,4 +107,3 @@ class PastryScreen extends StatelessWidget {
       ),
     );
   }
-}

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'carbonara.dart';
+import 'lasagna.dart';
+import 'macaroni.dart';
+import 'ravioli.dart';
+import 'spaghetti.dart';
 
 class PastaScreen extends StatelessWidget {
   @override
@@ -19,11 +23,39 @@ class PastaScreen extends StatelessWidget {
             imagePath: 'assets/carbonara.jpg', // Make sure to have an image for Carbonara
             screen: CarbonaraScreen(), // Navigate to CarbonaraScreen
           ),
-          // Add other pasta items here
+          _buildPastaItem(
+            context,
+            title: 'Lasagna',
+            description: 'Flat pasta sheets with meat sauce, Béchamel, and cheese.',
+            imagePath: 'assets/lasagna.jpg', // Make sure to have an image for Lasagna
+            screen: LasagnaScreen(), // Navigate to LasagnaScreen
+          ),
+          _buildPastaItem(
+            context,
+            title: 'Macaroni and cheese',
+            description: 'Macaroni, Mixture of melted cheese, Butter, Milk, and Cream.',
+            imagePath: 'assets/macaroni.jpg', // Make sure to have an image for Macaroni
+            screen: MacaroniScreen(), // Navigate to MacaroniScreen
+          ),
+          _buildPastaItem(
+            context,
+            title: 'Ravioli',
+            description: 'Stuffed pasta, Cheese, Meat, Vegetables, and Cream-based sauce.',
+            imagePath: 'assets/ravioli.jpg', // Make sure to have an image for Ravioli
+            screen: RavioliScreen(), // Navigate to RavioliScreen
+          ),
+          _buildPastaItem(
+            context,
+            title: 'Spaghetti Bolognese',
+            description: 'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine,',
+            imagePath: 'assets/spaghetti.jpg', // Make sure to have an image for Spaghetti
+            screen: SpaghettiScreen(), // Navigate to SpaghettiScreen
+          ),
         ],
       ),
     );
   }
+}
 
   Widget _buildPastaItem(
       BuildContext context, {
@@ -74,4 +106,3 @@ class PastaScreen extends StatelessWidget {
       ),
     );
   }
-}
