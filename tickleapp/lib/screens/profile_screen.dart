@@ -1,6 +1,14 @@
-import 'package:flutter/material.dart';
 
-// Placeholder screens for navigation
+import 'dart:developer';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
+
+
 class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -391,7 +399,56 @@ class PrivacyPolicyScreen extends StatelessWidget {
   }
 }
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String firstName = '';
+  String lastName = '';
+  String email = '';
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try{
+      User? user = _auth.currentUser;
+      if (user != null) {
+        email = user.email ?? 'No Email';
+
+        QuerySnapshot querySnapshot = await _firestore.collection('Users').where('email', isEqualTo: email).get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot userDoc = querySnapshot.docs.first;
+
+          setState(() {
+            firstName = userDoc['first name'] ?? 'No First Name';
+            lastName = userDoc['last name'] ?? 'No Last Name';
+          });
+        }else {
+          throw Exception('User not found');
+        }
+      }else {
+        throw Exception('No user is currently logged in');
+      }
+
+    }catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+  String imageUrl = '';
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -409,13 +466,43 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: 65,
                     backgroundImage: NetworkImage(
-                        'https://www.reallygreatsite.com/your_profile_image.jpg'),
+                        'https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png'),
+                  ),
+                  Positioned(
+                    child: IconButton(
+                    onPressed: () async {
+                      ImagePicker imagePicker = ImagePicker();
+                      XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                      log('${file?.path}');
+
+                      if(file == null) return;
+
+                      String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+                      Reference referenceRoot = FirebaseStorage.instance.ref();
+                      Reference referenceDirImages = referenceRoot.child('images');
+
+                      Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+
+                      try{
+                        await referenceImageToUpload.putFile(File(file!.path));
+                        imageUrl = await referenceImageToUpload.getDownloadURL();
+
+                      }catch (e) {
+
+                      }
+
+                    },
+                      icon: Icon(Icons.add_a_photo),
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Robby Dizon',
+                    firstName.isNotEmpty || lastName.isNotEmpty
+                    ? '$firstName $lastName'
+                    : 'Loading...',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -424,7 +511,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'dcrdizon@student.hau.edu.ph',
+                    email.isNotEmpty ? email : 'Loading...',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
