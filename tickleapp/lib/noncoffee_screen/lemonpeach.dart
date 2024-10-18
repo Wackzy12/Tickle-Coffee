@@ -14,6 +14,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
   bool isIcedSelected = false;
   bool isRegularSelected = false;
   bool isLargeSelected = false;
+  double price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -220,8 +221,9 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
+                          isRegularSelected = true;
+                          isLargeSelected = false;
+                          price = 140; // Set price for Regular
                         });
                       },
                       child: Container(
@@ -234,7 +236,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Regular',
+                            '12oz',
                             style: TextStyle(
                               color: isRegularSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -248,8 +250,9 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
+                          isLargeSelected = true;
+                          isRegularSelected = false;
+                          price = 160; // Set price for Large
                         });
                       },
                       child: Container(
@@ -262,7 +265,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Large',
+                            '16oz',
                             style: TextStyle(
                               color: isLargeSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -281,7 +284,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -298,7 +301,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '\₱₱price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

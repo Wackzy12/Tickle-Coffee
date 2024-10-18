@@ -11,8 +11,9 @@ class _croissantScreenState extends State<CroissantScreen> {
   final double mochaTextTopPadding = 10;
 
 
-  bool isRegularSelected = false;
-  bool isLargeSelected = false;
+  bool isRegularSelected = true; // By default, regular is selected
+  double price = 150; // Price for the regular slice
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +101,7 @@ class _croissantScreenState extends State<CroissantScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "Select Size",
+                          "Piece",
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 16,
@@ -109,7 +110,6 @@ class _croissantScreenState extends State<CroissantScreen> {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
                         child: Divider(
                           color: Colors.grey,
                           thickness: 2,
@@ -119,75 +119,12 @@ class _croissantScreenState extends State<CroissantScreen> {
                   ),
                 ),
 
-                // Coffee Size Selection (Regular / Large)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
-                        });
-                      },
-                      child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        decoration: BoxDecoration(
-                          color: isRegularSelected ? Color(0xFF112e12) : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Regular',
-                            style: TextStyle(
-                              color: isRegularSelected ? Colors.white : Color(0xFF112e12),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 20), // Space between buttons
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
-                        });
-                      },
-                      child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        decoration: BoxDecoration(
-                          color: isLargeSelected ? Color(0xFF112e12) : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Large',
-                            style: TextStyle(
-                              color: isLargeSelected ? Colors.white : Color(0xFF112e12),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
-
                 // Order Now Button
                 Center(
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -204,7 +141,7 @@ class _croissantScreenState extends State<CroissantScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '₱$price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

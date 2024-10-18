@@ -14,6 +14,7 @@ class _latteScreenState extends State<LatteScreen> {
   bool isIcedSelected = false;
   bool isRegularSelected = false;
   bool isLargeSelected = false;
+  double price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -181,38 +182,6 @@ class _latteScreenState extends State<LatteScreen> {
                 SizedBox(height: 10),
 
                 // Separator between Select Type and Select Size
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          "Select Size",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
                 // Coffee Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,8 +189,9 @@ class _latteScreenState extends State<LatteScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
+                          isRegularSelected = true;
+                          isLargeSelected = false;
+                          price = 120; // Set price for Regular
                         });
                       },
                       child: Container(
@@ -234,7 +204,7 @@ class _latteScreenState extends State<LatteScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Regular',
+                            '12oz',
                             style: TextStyle(
                               color: isRegularSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -248,8 +218,9 @@ class _latteScreenState extends State<LatteScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
+                          isLargeSelected = true;
+                          isRegularSelected = false;
+                          price = 140; // Set price for Large
                         });
                       },
                       child: Container(
@@ -262,7 +233,7 @@ class _latteScreenState extends State<LatteScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Large',
+                            '16oz',
                             style: TextStyle(
                               color: isLargeSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -281,7 +252,7 @@ class _latteScreenState extends State<LatteScreen> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -298,7 +269,7 @@ class _latteScreenState extends State<LatteScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '\₱₱price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

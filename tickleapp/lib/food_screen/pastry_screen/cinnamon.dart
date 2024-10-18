@@ -12,6 +12,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
 
   bool isRegularSelected = false;
   bool isLargeSelected = false;
+  double price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +126,9 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
+                          isRegularSelected = true;
+                          isLargeSelected = false;
+                          price = 150; // Set price for Regular
                         });
                       },
                       child: Container(
@@ -139,7 +141,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Regular',
+                            'Piece',
                             style: TextStyle(
                               color: isRegularSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -153,8 +155,9 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
+                          isLargeSelected = true;
+                          isRegularSelected = false;
+                          price = 1000; // Set price for Large
                         });
                       },
                       child: Container(
@@ -167,7 +170,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Large',
+                            '1 Whole Tray',
                             style: TextStyle(
                               color: isLargeSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -186,7 +189,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -203,7 +206,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '\₱₱price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

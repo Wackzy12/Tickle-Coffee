@@ -12,6 +12,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
 
   bool isRegularSelected = false;
   bool isLargeSelected = false;
+  double price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Spaghetti noodles, Eggs, Pecorino Romano cheese, Guanciale, and Black pepper. ',
+                        'Spaghetti noodles, Eggs, Pecorino Romano cheese, Guanciale, and Black pepper.\n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -126,8 +127,9 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
+                          isRegularSelected = true;
+                          isLargeSelected = false;
+                          price = 250; // Set price for Regular
                         });
                       },
                       child: Container(
@@ -154,8 +156,9 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
+                          isLargeSelected = true;
+                          isRegularSelected = false;
+                          price = 350; // Set price for Large
                         });
                       },
                       child: Container(
@@ -187,7 +190,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -204,7 +207,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '\₱₱price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

@@ -6,13 +6,12 @@ class ApplepieScreen extends StatefulWidget {
 }
 
 class _applepieScreenState extends State<ApplepieScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
-
   bool isRegularSelected = false;
   bool isLargeSelected = false;
+  double price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +84,6 @@ class _applepieScreenState extends State<ApplepieScreen> {
                   ),
                 ),
 
-
                 // Separator between Select Type and Select Size
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -126,8 +124,9 @@ class _applepieScreenState extends State<ApplepieScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
+                          isRegularSelected = true;
+                          isLargeSelected = false;
+                          price = 150; // Set price for Regular
                         });
                       },
                       child: Container(
@@ -140,7 +139,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Regular',
+                            '1 Slice',
                             style: TextStyle(
                               color: isRegularSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -154,8 +153,9 @@ class _applepieScreenState extends State<ApplepieScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
+                          isLargeSelected = true;
+                          isRegularSelected = false;
+                          price = 1000; // Set price for Large
                         });
                       },
                       child: Container(
@@ -168,7 +168,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Large',
+                            '1 Whole Pie',
                             style: TextStyle(
                               color: isLargeSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -187,7 +187,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -204,7 +204,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '\₱₱price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

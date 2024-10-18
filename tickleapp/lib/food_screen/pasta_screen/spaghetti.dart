@@ -12,6 +12,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
 
   bool isRegularSelected = false;
   bool isLargeSelected = false;
+  double price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine,',
+                        'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine,\n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -85,39 +86,6 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                 ),
 
 
-                // Separator between Select Type and Select Size
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          "Select Size",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
                 // Coffee Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -125,8 +93,9 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isRegularSelected = !isRegularSelected;
-                          isLargeSelected = false; // Deselect the other option
+                          isRegularSelected = true;
+                          isLargeSelected = false;
+                          price = 250; // Set price for Regular
                         });
                       },
                       child: Container(
@@ -153,8 +122,9 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isLargeSelected = !isLargeSelected;
-                          isRegularSelected = false; // Deselect the other option
+                          isLargeSelected = true;
+                          isRegularSelected = false;
+                          price = 350; // Set price for Large
                         });
                       },
                       child: Container(
@@ -186,7 +156,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF112e12),
+                      backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -203,7 +173,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\$25',
+                          '\₱₱price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],
