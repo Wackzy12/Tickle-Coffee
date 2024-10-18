@@ -24,8 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String firstName = '';
   String lastName = '';
   String email = '';
-
-
+  String imageUrl = '';
 
   @override
   void initState() {
@@ -34,33 +33,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> fetchUserData() async {
-    try{
+    try {
       User? user = _auth.currentUser;
       if (user != null) {
-        email = user.email ?? 'No Email';
+        // Use UID instead of email
+        DocumentSnapshot userDoc = await _firestore.collection('Users').doc(user.uid).get();
 
-        QuerySnapshot querySnapshot = await _firestore.collection('Users').where('email', isEqualTo: email).get();
-
-        if (querySnapshot.docs.isNotEmpty) {
-          DocumentSnapshot userDoc = querySnapshot.docs.first;
-
+        if (userDoc.exists) {
           setState(() {
             firstName = userDoc['first name'] ?? 'No First Name';
             lastName = userDoc['last name'] ?? 'No Last Name';
+            email = user.email ?? 'No Email';
           });
-        }else {
-          throw Exception('User not found');
+        } else {
+          throw Exception('User document not found');
         }
-      }else {
+      } else {
         throw Exception('No user is currently logged in');
       }
-
-    }catch (e) {
+    } catch (e) {
       print('Error fetching user data: $e');
     }
   }
 
-  String imageUrl = '';
+  Future<void> uploadImage() async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+    log('${file?.path}');
+
+    if (file == null) return;
+
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child('images');
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+
+    try {
+      await referenceImageToUpload.putFile(File(file.path));
+      imageUrl = await referenceImageToUpload.getDownloadURL();
+
+
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore
+            .collection('Users')
+            .doc(user.uid)
+            .update({'imageUrl': imageUrl});
+        setState(() {});
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
 
 
   @override
@@ -79,38 +103,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 65,
-                    backgroundImage: NetworkImage(
-                        'https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png'),
-                  ),
-                  Positioned(
-                    child: IconButton(
-                      onPressed: () async {
-                        ImagePicker imagePicker = ImagePicker();
-                        XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
-                        log('${file?.path}');
-
-                        if(file == null) return;
-
-                        String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-
-                        Reference referenceRoot = FirebaseStorage.instance.ref();
-                        Reference referenceDirImages = referenceRoot.child('images');
-
-                        Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
-
-                        try{
-                          await referenceImageToUpload.putFile(File(file.path));
-                          imageUrl = await referenceImageToUpload.getDownloadURL();
-
-                        }catch (e) {
-
-                        }
-
-                      },
-                      icon: Icon(Icons.add_a_photo),
-                    ),
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 65,
+                        backgroundImage: imageUrl.isNotEmpty
+                            ? NetworkImage(imageUrl)
+                            : NetworkImage('https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png'),
+                      ),
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: IconButton(
+                          onPressed: uploadImage,
+                          icon: Icon(Icons.add_a_photo),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -217,14 +226,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                   ),
-
                   ListTile(
                     leading: Icon(Icons.logout, color: Color(0xFF112e12)),
                     title: Text('Log Out'),
                     onTap: () {
-                      // Placeholder for logout
                       print('Log Out tapped');
-                      Navigator.pop(context); // Example of popping the current route
+                      Navigator.pop(context);
                     },
                   ),
                 ],

@@ -56,18 +56,25 @@ class _signupScreenState extends State<SignUpScreen> {
 
     try {
 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email.text.trim(),
-        password: _password.text.trim(),
+      String? uid = await _auth.createUserWithEmailandPassword(
+        _email.text.trim(),
+        _password.text.trim(),
       );
 
-      await addUserDetails(
-        _firstName.text.trim(),
-        _lastName.text.trim(),
-        _email.text.trim(),
-        _phone.text.trim(),
-      );
-      return true;
+
+      if (uid != null) {
+        await addUserDetails(uid,
+          _firstName.text.trim(),
+          _lastName.text.trim(),
+          _email.text.trim(),
+          _phone.text.trim(),
+        );
+        return true;
+      }else {
+        _showErrorDialog('Failed to create user.');
+        return false;
+      }
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         _showErrorDialog('This email already exists.');
@@ -83,8 +90,8 @@ class _signupScreenState extends State<SignUpScreen> {
     }
   }
 
-  Future addUserDetails(String firstName, String lastName, String email, String phone) async {
-    await FirebaseFirestore.instance.collection('Users').add({
+  Future<void> addUserDetails(String uid, String firstName, String lastName, String email, String phone) async {
+    await FirebaseFirestore.instance.collection('Users').doc(uid).set({
       'first name': firstName,
       'last name': lastName,
       'email': email,
