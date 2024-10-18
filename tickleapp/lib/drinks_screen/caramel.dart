@@ -301,7 +301,7 @@ class _caramelScreenState extends State<CaramelScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\₱₱price',
+                          '₱$price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

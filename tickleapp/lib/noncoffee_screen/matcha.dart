@@ -301,7 +301,7 @@ class _matchaScreenState extends State<MatchaScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\₱₱price',
+                          '₱$price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

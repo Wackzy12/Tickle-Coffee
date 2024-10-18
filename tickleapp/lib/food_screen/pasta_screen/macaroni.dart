@@ -50,7 +50,7 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Macaroni and Cheese. \n Regular = 1 Person.\n Large = 2-3 Persons.',
+                        'Macaroni and Cheese.',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                       SizedBox(height: 5),
                       // Mocha Description
                       Text(
-                        'Macaroni, Mixture of melted cheese, Butter, Milk, and Cream.',
+                        'Macaroni, Mixture of melted cheese, Butter, Milk, and Cream. \n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -172,7 +172,7 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '\₱₱price',
+                          '₱$price',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],
