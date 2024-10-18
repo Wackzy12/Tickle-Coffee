@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tickleapp/drinks_screen/caramel.dart';
-import 'package:tickleapp/drinks_screen/wmocha.dart';
+import 'package:tickleapp/food_screen/pasta_screen/spaghetti.dart';
+import 'package:tickleapp/food_screen/pastry_screen/croissant.dart';
+import 'package:tickleapp/noncoffee_screen/matcha.dart';
 import '../drinks_screen/mocha.dart';
 
 
@@ -107,8 +108,9 @@ class _homeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       MenuItem(imagePath:'assets/mocha.jpg', screen: MochaScreen()),
-                      MenuItem(imagePath: 'assets/wmocha.jpg', screen: WhiteMochaScreen()),
-                      MenuItem(imagePath: 'assets/caramel.jpg', screen: CaramelScreen(),),
+                      MenuItem(imagePath: 'assets/matcha.jpg', screen:MatchaScreen(),),
+                      MenuItem(imagePath: 'assets/croissant.jpg', screen: CroissantScreen(),),
+                      MenuItem(imagePath: 'assets/spaghetti.jpg', screen: SpaghettiScreen(),),
                       //MenuItem(imagePath: 'assets/cinnamon.jpg'),
                       //MenuItem(imagePath: 'assets/blueberrycheese.jpg'),
                     ],

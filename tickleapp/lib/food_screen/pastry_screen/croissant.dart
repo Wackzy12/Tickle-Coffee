@@ -33,7 +33,7 @@ class _croissantScreenState extends State<CroissantScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/croissant.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

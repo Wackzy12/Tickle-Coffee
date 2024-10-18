@@ -32,7 +32,7 @@ class _ravioliScreenState extends State<RavioliScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/ravioli.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

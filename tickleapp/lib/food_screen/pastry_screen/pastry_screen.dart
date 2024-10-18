@@ -21,7 +21,7 @@ class PastryScreen extends StatelessWidget {
             context,
             title: 'Apple Pie',
             description: 'Pie crust, Apples, Sugar, Cinnamon, Nutmeg, and Butter.',
-            imagePath: 'assets/apple_pie.jpg', // Make sure to have an image for Apple Pie
+            imagePath: 'assets/applepie.jpg', // Make sure to have an image for Apple Pie
             screen: ApplepieScreen(), // Navigate to ApplepieScreen
           ),
           _buildPastryItem(

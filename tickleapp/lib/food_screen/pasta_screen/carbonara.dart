@@ -32,7 +32,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/carbonara.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

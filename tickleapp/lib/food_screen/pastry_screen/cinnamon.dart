@@ -32,7 +32,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/cinnamon.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

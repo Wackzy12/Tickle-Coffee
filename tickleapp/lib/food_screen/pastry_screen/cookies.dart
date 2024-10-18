@@ -32,7 +32,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/cookies.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

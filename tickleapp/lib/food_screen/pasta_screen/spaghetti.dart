@@ -32,7 +32,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/spaghetti.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

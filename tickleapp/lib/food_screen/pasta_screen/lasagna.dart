@@ -32,7 +32,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/lasagna.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -49,7 +49,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Lasagna',
+                        'lasagna',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,

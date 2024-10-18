@@ -33,7 +33,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/applepie.jpg'),
                 fit: BoxFit.cover,
               ),
             ),

@@ -32,7 +32,7 @@ class _macaroniScreenState extends State<MacaroniScreen> {
             height: coffeeBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/caramel.jpg'),
+                image: AssetImage('assets/macaroni.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
