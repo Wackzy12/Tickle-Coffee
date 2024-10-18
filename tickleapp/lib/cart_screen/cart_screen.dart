@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cart_manager.dart'; // Import the cart manager
 
 class CartScreen extends StatefulWidget {
   @override
@@ -6,19 +7,10 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<String> _cartItems = ['Mocha', 'Matcha', 'Croissant']; // Sample cart items
-
-  void _clearCart() {
-    setState(() {
-      _cartItems.clear();
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Cart cleared')),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final cartItems = CartManager.instance.cartItems;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -26,7 +18,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: _cartItems.isEmpty
+        child: cartItems.isEmpty
             ? Center(
           child: Text(
             'Your cart is empty',
@@ -46,19 +38,23 @@ class _CartScreenState extends State<CartScreen> {
             SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
-                itemCount: _cartItems.length,
+                itemCount: cartItems.length,
                 itemBuilder: (context, index) {
+                  final item = cartItems[index];
                   return ListTile(
-                    title: Text(_cartItems[index]),
+                    title: Text(
+                      '${item['name']} (${item['size']}, ${item['type']})',
+                    ),
+                    subtitle: Text('₱${item['price']}'),
                     trailing: IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
                         setState(() {
-                          _cartItems.removeAt(index);
+                          CartManager.instance.removeItem(index);
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('${_cartItems[index]} removed from cart'),
+                            content: Text('${item['name']} removed from cart'),
                           ),
                         );
                       },
@@ -70,7 +66,14 @@ class _CartScreenState extends State<CartScreen> {
             SizedBox(height: 16),
             Center(
               child: ElevatedButton(
-                onPressed: _clearCart,
+                onPressed: () {
+                  setState(() {
+                    CartManager.instance.clearCart();
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Cart cleared')),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red, // Background color
                 ),

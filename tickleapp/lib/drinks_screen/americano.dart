@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import '../cart_screen/cart_manager.dart'; // Import the cart manager
 
 class AmericanoScreen extends StatefulWidget {
   @override
-  State<AmericanoScreen> createState() => _americanoScreenState();
+  State<AmericanoScreen> createState() => _AmericanoScreenState();
 }
 
-class _americanoScreenState extends State<AmericanoScreen> {
-
+class _AmericanoScreenState extends State<AmericanoScreen> {
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -47,7 +47,7 @@ class _americanoScreenState extends State<AmericanoScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Americano Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -67,7 +67,6 @@ class _americanoScreenState extends State<AmericanoScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
                       Text(
                         'Smooth, bold, and less intense than straight espresso but still carries its depth and complexity',
                         textAlign: TextAlign.center,
@@ -86,7 +85,6 @@ class _americanoScreenState extends State<AmericanoScreen> {
                     ],
                   ),
                 ),
-
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -118,6 +116,7 @@ class _americanoScreenState extends State<AmericanoScreen> {
                     ],
                   ),
                 ),
+
                 // Coffee Type Selection (Hot / Iced)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -125,13 +124,13 @@ class _americanoScreenState extends State<AmericanoScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isHotSelected = !isHotSelected;
-                          isIcedSelected = false; // Deselect the other option
+                          isHotSelected = true;
+                          isIcedSelected = false;
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -149,17 +148,17 @@ class _americanoScreenState extends State<AmericanoScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between the buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isIcedSelected = !isIcedSelected;
-                          isHotSelected = false; // Deselect the other option
+                          isIcedSelected = true;
+                          isHotSelected = false;
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -190,12 +189,12 @@ class _americanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          price = 120; // Set price for Regular
+                          price = 120; // Price for Regular
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isRegularSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -213,18 +212,18 @@ class _americanoScreenState extends State<AmericanoScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          price = 140; // Set price for Large
+                          price = 140; // Price for Large
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isLargeSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -249,7 +248,29 @@ class _americanoScreenState extends State<AmericanoScreen> {
                 // Order Now Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (price > 0 &&
+                          (isHotSelected || isIcedSelected) &&
+                          (isRegularSelected || isLargeSelected)) {
+                        String type = isHotSelected ? 'Hot' : 'Iced';
+                        String size = isRegularSelected ? '12oz' : '16oz';
+
+                        CartManager.instance.addItem(
+                          'Americano',
+                          price,
+                          size,
+                          type,
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Americano added to cart')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please select all options')),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
