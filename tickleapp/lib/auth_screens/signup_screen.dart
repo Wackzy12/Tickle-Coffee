@@ -20,6 +20,7 @@ class _signupScreenState extends State<SignUpScreen> {
   final _password = TextEditingController();
   final _confirmPassword = TextEditingController();
   final _phone = TextEditingController();
+  final _imageUrl = TextEditingController();
 
 
   @override
@@ -96,6 +97,7 @@ class _signupScreenState extends State<SignUpScreen> {
       'last name': lastName,
       'email': email,
       'phone': phone,
+      'imageUrl': '',
     });
   }
 

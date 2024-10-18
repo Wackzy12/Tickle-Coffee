@@ -44,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             firstName = userDoc['first name'] ?? 'No First Name';
             lastName = userDoc['last name'] ?? 'No Last Name';
             email = user.email ?? 'No Email';
+            imageUrl = userDoc['imageUrl'] ?? '';
           });
         } else {
           throw Exception('User document not found');

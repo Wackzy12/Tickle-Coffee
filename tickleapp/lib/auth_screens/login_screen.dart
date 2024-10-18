@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tickleapp/navigator.dart';
 import 'package:tickleapp/auth_screens/auth_service.dart';
-import '../screens/home_screen.dart';
 import 'forgot_password.dart';
 
 
