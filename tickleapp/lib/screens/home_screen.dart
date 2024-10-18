@@ -3,6 +3,7 @@ import 'package:tickleapp/food_screen/pasta_screen/spaghetti.dart';
 import 'package:tickleapp/food_screen/pastry_screen/croissant.dart';
 import 'package:tickleapp/noncoffee_screen/matcha.dart';
 import '../drinks_screen/mocha.dart';
+import '../cart_screen/cart_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -37,7 +38,15 @@ class _homeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(width: 16),
-            Icon(Icons.shopping_cart, color: Colors.white),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartScreen()),
+                );
+              },
+              child: Icon(Icons.shopping_cart, color: Colors.white),
+            ),
             SizedBox(width: 16),
             Icon(Icons.favorite, color: Colors.white),
           ],
