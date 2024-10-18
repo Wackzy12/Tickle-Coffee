@@ -4,8 +4,20 @@ class AboutAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('About This App'),
+        title: Text(
+          'About App',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: Color(0xFF112e12),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

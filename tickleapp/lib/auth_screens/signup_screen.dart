@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tickleapp/auth_screens/auth_service.dart';
+import '../main.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,14 +13,12 @@ class SignUpScreen extends StatefulWidget {
 
 class _signupScreenState extends State<SignUpScreen> {
   final _auth = AuthService();
-
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _confirmPassword = TextEditingController();
   final _phone = TextEditingController();
-  final _imageUrl = TextEditingController();
 
 
   @override
@@ -138,7 +136,10 @@ class _signupScreenState extends State<SignUpScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoadingScreen()),
+            );
           },
         ),
       ),
@@ -236,6 +237,7 @@ class _signupScreenState extends State<SignUpScreen> {
               width: 350, height: 40,
               child: TextField(
                 controller: _password,
+                obscureText: true,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -255,6 +257,7 @@ class _signupScreenState extends State<SignUpScreen> {
               width: 350, height: 40,
               child: TextField(
                 controller: _confirmPassword,
+                obscureText: true,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,

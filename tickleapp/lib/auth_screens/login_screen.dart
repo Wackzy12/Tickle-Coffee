@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tickleapp/main.dart';
 import 'package:tickleapp/navigator.dart';
-import 'package:tickleapp/auth_screens/auth_service.dart';
+
 import 'forgot_password.dart';
 
 
@@ -12,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 
 class _loginScreenState extends State<LoginScreen> {
 
-  final _auth = AuthService();
   final _email = TextEditingController();
   final _password = TextEditingController();
 
@@ -22,7 +22,7 @@ class _loginScreenState extends State<LoginScreen> {
     _email.dispose();
     _password.dispose();
   }
-  
+
 
   Future<bool> logIn() async {
     if (_email.text.isEmpty || _password.text.isEmpty) {
@@ -84,7 +84,10 @@ class _loginScreenState extends State<LoginScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoadingScreen()),
+            );
           },
         ),
       ),
@@ -117,6 +120,7 @@ class _loginScreenState extends State<LoginScreen> {
               width: 350, height: 40,
               child: TextField(
                 controller: _password,
+                obscureText: true,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
