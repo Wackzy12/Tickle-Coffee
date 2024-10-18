@@ -155,7 +155,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          price = 1000; // Set price for Large
+                          price = 1050; // Set price for Large
                         });
                       },
                       child: Container(
