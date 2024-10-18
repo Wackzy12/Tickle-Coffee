@@ -14,7 +14,15 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
   bool isIcedSelected = false;
   bool isRegularSelected = false;
   bool isLargeSelected = false;
-  double price = 0;
+  double basePrice = 0;
+  double totalPrice = 0;
+  int quantity = 1; // Quantity starts at 1
+
+  void _updateTotalPrice() {
+    setState(() {
+      totalPrice = basePrice * quantity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,18 +138,22 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        // Set the desired width
+                        height: 50,
+                        // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
+                          color: isHotSelected ? Color(0xFF112e12) : Colors
+                              .grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Hot',
                             style: TextStyle(
-                              color: isHotSelected ? Colors.white : Color(0xFF112e12),
+                              color: isHotSelected ? Colors.white : Color(
+                                  0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -158,18 +170,22 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        // Set the desired width
+                        height: 50,
+                        // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
+                          color: isIcedSelected ? Color(0xFF112e12) : Colors
+                              .grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Iced',
                             style: TextStyle(
-                              color: isIcedSelected ? Colors.white : Color(0xFF112e12),
+                              color: isIcedSelected ? Colors.white : Color(
+                                  0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -223,22 +239,25 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          price = 130; // Set price for Regular
+                          basePrice = 120; // Price for Regular
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isRegularSelected ? Color(0xFF112e12) : Colors.grey[300],
+                          color: isRegularSelected ? Color(0xFF112e12) : Colors
+                              .grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             '12oz',
                             style: TextStyle(
-                              color: isRegularSelected ? Colors.white : Color(0xFF112e12),
+                              color: isRegularSelected ? Colors.white : Color(
+                                  0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -246,28 +265,31 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          price = 150; // Set price for Large
+                          basePrice = 140; // Price for Large
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isLargeSelected ? Color(0xFF112e12) : Colors.grey[300],
+                          color: isLargeSelected ? Color(0xFF112e12) : Colors
+                              .grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             '16oz',
                             style: TextStyle(
-                              color: isLargeSelected ? Colors.white : Color(0xFF112e12),
+                              color: isLargeSelected ? Colors.white : Color(
+                                  0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -277,18 +299,67 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: 20),
+
+                // Quantity Selector
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        if (quantity > 1) {
+                          setState(() {
+                            quantity--;
+                            _updateTotalPrice();
+                          });
+                        }
+                      },
+                      icon: Icon(Icons.remove_circle_outline),
+                    ),
+                    Text(
+                      '$quantity',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          quantity++;
+                          _updateTotalPrice();
+                        });
+                      },
+                      icon: Icon(Icons.add_circle_outline),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 30),
 
                 // Order Now Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (totalPrice > 0 &&
+                          (isHotSelected || isIcedSelected) &&
+                          (isRegularSelected || isLargeSelected)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Americano ordered: ₱$totalPrice')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please select all options')),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -301,7 +372,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '₱$price',
+                          '₱$totalPrice',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

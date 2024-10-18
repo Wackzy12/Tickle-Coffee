@@ -189,7 +189,6 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                 SizedBox(height: 10),
 
                 // Coffee Size Selection (Regular / Large)
-                // Coffee Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

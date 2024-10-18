@@ -14,7 +14,15 @@ class _matchaScreenState extends State<MatchaScreen> {
   bool isIcedSelected = false;
   bool isRegularSelected = false;
   bool isLargeSelected = false;
-  double price = 0;
+  double basePrice = 0;
+  double totalPrice = 0;
+  int quantity = 1; // Quantity starts at 1
+
+  void _updateTotalPrice() {
+    setState(() {
+      totalPrice = basePrice * quantity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,12 +231,13 @@ class _matchaScreenState extends State<MatchaScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          price = 140; // Set price for Regular
+                          basePrice = 160; // Price for Regular
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isRegularSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -246,18 +255,19 @@ class _matchaScreenState extends State<MatchaScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          price = 160; // Set price for Large
+                          basePrice = 180; // Price for Large
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50, // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isLargeSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -277,12 +287,59 @@ class _matchaScreenState extends State<MatchaScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: 20),
+
+                // Quantity Selector
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        if (quantity > 1) {
+                          setState(() {
+                            quantity--;
+                            _updateTotalPrice();
+                          });
+                        }
+                      },
+                      icon: Icon(Icons.remove_circle_outline),
+                    ),
+                    Text(
+                      '$quantity',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          quantity++;
+                          _updateTotalPrice();
+                        });
+                      },
+                      icon: Icon(Icons.add_circle_outline),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 30),
 
                 // Order Now Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (totalPrice > 0 &&
+                          (isHotSelected || isIcedSelected) &&
+                          (isRegularSelected || isLargeSelected)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please select all options')),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
@@ -301,7 +358,7 @@ class _matchaScreenState extends State<MatchaScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '₱$price',
+                          '₱$totalPrice',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],
