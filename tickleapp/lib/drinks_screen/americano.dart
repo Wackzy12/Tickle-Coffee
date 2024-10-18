@@ -14,7 +14,15 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
   bool isIcedSelected = false;
   bool isRegularSelected = false;
   bool isLargeSelected = false;
-  double price = 0;
+  double basePrice = 0;
+  double totalPrice = 0;
+  int quantity = 1; // Quantity starts at 1
+
+  void _updateTotalPrice() {
+    setState(() {
+      totalPrice = basePrice * quantity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +197,8 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          price = 120; // Price for Regular
+                          basePrice = 120; // Price for Regular
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
@@ -218,7 +227,8 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          price = 140; // Price for Large
+                          basePrice = 140; // Price for Large
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
@@ -243,27 +253,52 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: 20),
+
+                // Quantity Selector
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        if (quantity > 1) {
+                          setState(() {
+                            quantity--;
+                            _updateTotalPrice();
+                          });
+                        }
+                      },
+                      icon: Icon(Icons.remove_circle_outline),
+                    ),
+                    Text(
+                      '$quantity',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          quantity++;
+                          _updateTotalPrice();
+                        });
+                      },
+                      icon: Icon(Icons.add_circle_outline),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 30),
 
                 // Order Now Button
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      if (price > 0 &&
+                      if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
-                        String type = isHotSelected ? 'Hot' : 'Iced';
-                        String size = isRegularSelected ? '12oz' : '16oz';
-
-                        CartManager.instance.addItem(
-                          'Americano',
-                          price,
-                          size,
-                          type,
-                        );
-
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano added to cart')),
+                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -289,7 +324,7 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '₱$price',
+                          '₱$totalPrice',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],

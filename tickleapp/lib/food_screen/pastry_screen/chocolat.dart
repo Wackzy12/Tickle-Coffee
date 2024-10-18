@@ -10,10 +10,16 @@ class _chocolatScreenState extends State<ChocolatScreen> {
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
-
   bool isRegularSelected = true; // By default, regular is selected
-  double price = 150; // Price for the regular slice
+  double basePrice = 150; // Price for a regular slice
+  int quantity = 1; // Default quantity is 1
+  double totalPrice = 150; // Initial total price
 
+  void _updateTotalPrice() {
+    setState(() {
+      totalPrice = basePrice * quantity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +92,7 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                   ),
                 ),
 
-                // Separator between Select Type and Select Size
+                // Separator between description and quantity
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Row(
@@ -118,10 +124,55 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                   ),
                 ),
 
+                // Quantity Selector
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        if (quantity > 1) {
+                          setState(() {
+                            quantity--;
+                            _updateTotalPrice();
+                          });
+                        }
+                      },
+                      icon: Icon(Icons.remove_circle_outline),
+                    ),
+                    Text(
+                      '$quantity',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          quantity++;
+                          _updateTotalPrice();
+                        });
+                      },
+                      icon: Icon(Icons.add_circle_outline),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+
                 // Order Now Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (totalPrice > 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Ordered $quantity slice(s) of Pan Eu Chocolat for ₱$totalPrice')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please select a valid quantity')),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF112e12),
                       shape: RoundedRectangleBorder(
@@ -140,7 +191,7 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          '₱$price',
+                          '₱$totalPrice',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ],
