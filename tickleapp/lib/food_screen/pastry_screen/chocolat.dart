@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/cart_screen/cart_manager.dart';
+import '/favorite_screen/favorites_manager.dart';
 
 class ChocolatScreen extends StatefulWidget {
   @override
@@ -14,17 +15,35 @@ class _chocolatScreenState extends State<ChocolatScreen> {
   double basePrice = 150; // Price for a regular slice
   int quantity = 1; // Default quantity is 1
   double totalPrice = 150; // Initial total price
-  bool isFavorited = false; // Track whether the item is favorited
+  bool isFavorited = false;
 
-  void _updateTotalPrice() {
+  @override
+  void initState() {
+    super.initState();
+    _checkIfFavorited();
+  }
+
+  Future<void> _checkIfFavorited() async {
+    List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      totalPrice = basePrice * quantity;
+      isFavorited = favorites.contains('Americano');
     });
   }
 
-  void _toggleFavorite() {
+  void _toggleFavorite() async {
+    if (isFavorited) {
+      await FavoritesManager().removeFavorite('Americano');
+    } else {
+      await FavoritesManager().addFavorite('Americano');
+    }
     setState(() {
       isFavorited = !isFavorited;
+    });
+  }
+
+  void _updateTotalPrice() {
+    setState(() {
+      totalPrice = basePrice * quantity; // Calculate total price
     });
   }
 

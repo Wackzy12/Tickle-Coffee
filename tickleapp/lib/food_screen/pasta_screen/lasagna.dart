@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/cart_screen/cart_manager.dart'; // Make sure to import the CartManager
+import '/cart_screen/cart_manager.dart';// Make sure to import the CartManager
+import '/favorite_screen/favorites_manager.dart';
 
 class LasagnaScreen extends StatefulWidget {
   @override
@@ -15,18 +16,35 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
   double basePrice = 0;
   double totalPrice = 0;
   int quantity = 1; // Quantity starts at 1
+  bool isFavorited = false;
 
-  bool isFavorited = false; // Track whether the item is favorited
+  @override
+  void initState() {
+    super.initState();
+    _checkIfFavorited();
+  }
 
-  void _updateTotalPrice() {
+  Future<void> _checkIfFavorited() async {
+    List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      totalPrice = basePrice * quantity;
+      isFavorited = favorites.contains('Americano');
     });
   }
 
-  void _toggleFavorite() {
+  void _toggleFavorite() async {
+    if (isFavorited) {
+      await FavoritesManager().removeFavorite('Americano');
+    } else {
+      await FavoritesManager().addFavorite('Americano');
+    }
     setState(() {
       isFavorited = !isFavorited;
+    });
+  }
+
+  void _updateTotalPrice() {
+    setState(() {
+      totalPrice = basePrice * quantity; // Calculate total price
     });
   }
 
