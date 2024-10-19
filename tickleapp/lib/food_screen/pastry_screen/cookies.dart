@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class CookiesScreen extends StatefulWidget {
   @override
@@ -6,12 +7,11 @@ class CookiesScreen extends StatefulWidget {
 }
 
 class _cookiesScreenState extends State<CookiesScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
   bool isRegularSelected = true; // By default, regular is selected
-  double basePrice = 110; // Price for a regular slice
+  double basePrice = 110; // Price for a regular cookie
   int quantity = 1; // Default quantity is 1
   double totalPrice = 110; // Initial total price
 
@@ -52,7 +52,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Cookies Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -72,7 +72,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Cookies Description
                       Text(
                         'Flour, Sugar, Butter, Eggs, and Vanilla extract.',
                         textAlign: TextAlign.center,
@@ -91,7 +91,6 @@ class _cookiesScreenState extends State<CookiesScreen> {
                     ],
                   ),
                 ),
-
 
                 // Separator between description and quantity
                 Padding(
@@ -165,8 +164,17 @@ class _cookiesScreenState extends State<CookiesScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0) {
+                        // Add the cookies item to the cart
+                        CartManager.instance.addItem(
+                          'Cookies',
+                          totalPrice,
+                          'Piece', // Size for piece
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Ordered $quantity slice(s) of Pan Eu Chocolat for ₱$totalPrice')),
+                          SnackBar(content: Text('Ordered $quantity piece(s) of Cookies for ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

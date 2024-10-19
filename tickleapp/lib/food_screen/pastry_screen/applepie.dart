@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart'; // Ensure you import your CartManager class
 
 class ApplepieScreen extends StatefulWidget {
   @override
@@ -6,8 +7,8 @@ class ApplepieScreen extends StatefulWidget {
 }
 
 class _applepieScreenState extends State<ApplepieScreen> {
-  final double coffeeBackgroundHeight = 300;
-  final double mochaTextTopPadding = 10;
+  final double applePieBackgroundHeight = 300;
+  final double applePieTextTopPadding = 10;
 
   bool isRegularSelected = false;
   bool isLargeSelected = false;
@@ -37,7 +38,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
       body: Stack(
         children: [
           Container(
-            height: coffeeBackgroundHeight,
+            height: applePieBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/applepie.jpg'),
@@ -50,9 +51,9 @@ class _applepieScreenState extends State<ApplepieScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
+                SizedBox(height: applePieBackgroundHeight - applePieTextTopPadding),
 
-                // Mocha Label and Description
+                // Apple Pie Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -72,7 +73,6 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
                       Text(
                         'Pie crust, Apples, Sugar, Cinnamon, Nutmeg, and Butter.',
                         textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                   ),
                 ),
 
-                // Coffee Size Selection (Regular / Large)
+                // Apple Pie Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -232,8 +232,19 @@ class _applepieScreenState extends State<ApplepieScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Regular' : 'Large';
+
+                        // Add the apple pie item to the cart
+                        CartManager.instance.addItem(
+                          'Apple Pie',
+                          totalPrice,
+                          size,
+                          'Dessert', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Apple Pie added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

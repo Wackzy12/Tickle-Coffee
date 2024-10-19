@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart'; // Import the cart manager
 
 class CaramelScreen extends StatefulWidget {
   @override
-  State<CaramelScreen> createState() => _caramelScreenState();
+  State<CaramelScreen> createState() => _CaramelScreenState();
 }
 
-class _caramelScreenState extends State<CaramelScreen> {
+class _CaramelScreenState extends State<CaramelScreen> {
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -54,7 +55,7 @@ class _caramelScreenState extends State<CaramelScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Caramel Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -74,9 +75,8 @@ class _caramelScreenState extends State<CaramelScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
                       Text(
-                        'Espresso-based drink that combines espresso, steamed milk, and caramel syrup for a sweet, buttery flavor.',
+                        'Sweet and creamy caramel-flavored coffee, perfect for a delightful treat',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -93,7 +93,6 @@ class _caramelScreenState extends State<CaramelScreen> {
                     ],
                   ),
                 ),
-
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -125,6 +124,7 @@ class _caramelScreenState extends State<CaramelScreen> {
                     ],
                   ),
                 ),
+
                 // Coffee Type Selection (Hot / Iced)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -132,13 +132,15 @@ class _caramelScreenState extends State<CaramelScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isHotSelected = !isHotSelected;
-                          isIcedSelected = false; // Deselect the other option
+                          isHotSelected = true;
+                          isIcedSelected = false;
+                          basePrice = isRegularSelected ? 150 : 170; // Update price based on size
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -156,17 +158,19 @@ class _caramelScreenState extends State<CaramelScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between the buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isIcedSelected = !isIcedSelected;
-                          isHotSelected = false; // Deselect the other option
+                          isIcedSelected = true;
+                          isHotSelected = false;
+                          basePrice = isRegularSelected ? 150 : 170; // Update price based on size
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -211,7 +215,6 @@ class _caramelScreenState extends State<CaramelScreen> {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
                         child: Divider(
                           color: Colors.grey,
                           thickness: 2,
@@ -230,8 +233,8 @@ class _caramelScreenState extends State<CaramelScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          basePrice = 140; // Price for Regular
-                          _updateTotalPrice();
+                          basePrice = isHotSelected ? 150 : 150; // Price for Regular
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
@@ -260,8 +263,8 @@ class _caramelScreenState extends State<CaramelScreen> {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          basePrice = 160; // Price for Large
-                          _updateTotalPrice();
+                          basePrice = isHotSelected ? 170 : 170; // Price for Large
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
@@ -330,8 +333,19 @@ class _caramelScreenState extends State<CaramelScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        String type = isHotSelected ? 'Hot' : 'Iced';
+                        String size = isRegularSelected ? '12oz' : '16oz';
+
+                        CartManager.instance.addItem(
+                          'Caramel',
+                          totalPrice,
+                          size,
+                          type,
+                          quantity,
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Caramel added to cart')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

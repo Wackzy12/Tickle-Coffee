@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class LemonpeachScreen extends StatefulWidget {
   @override
-  State<LemonpeachScreen> createState() => _lemonpeachScreenState();
+  State<LemonpeachScreen> createState() => _LemonpeachScreenState();
 }
 
-class _lemonpeachScreenState extends State<LemonpeachScreen> {
-
+class _LemonpeachScreenState extends State<LemonpeachScreen> {
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -23,6 +23,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
       totalPrice = basePrice * quantity;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +55,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Lemon Peach Tea Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -74,9 +75,8 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
                       Text(
-                        'A refreshing beverage made green tea with fresh lemon juice and peach flavor or slices.',
+                        'A refreshing beverage made with green tea, fresh lemon juice, and peach flavor or slices.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -93,7 +93,6 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                     ],
                   ),
                 ),
-
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -125,6 +124,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                     ],
                   ),
                 ),
+
                 // Coffee Type Selection (Hot / Iced)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,8 +137,8 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -156,7 +156,7 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between the buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -165,8 +165,8 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -330,8 +330,15 @@ class _lemonpeachScreenState extends State<LemonpeachScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        CartManager.instance.addItem(
+                          'Lemon Peach Tea',
+                          totalPrice,
+                          isRegularSelected ? '12oz' : '16oz',
+                          isHotSelected ? 'Hot' : 'Iced',
+                          quantity,
+                        );
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Lemon Peach Tea ordered: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

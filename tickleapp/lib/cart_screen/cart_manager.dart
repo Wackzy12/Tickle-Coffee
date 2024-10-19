@@ -1,3 +1,4 @@
+
 class CartManager {
   static final CartManager _instance = CartManager._internal();
   List<Map<String, dynamic>> _cartItems = [];
@@ -6,22 +7,21 @@ class CartManager {
 
   static CartManager get instance => _instance;
 
-  List<Map<String, dynamic>> get cartItems => _cartItems;
-
-  void addItem(String name, double price, String size, String type) {
+  void addItem(String name, double price, String size, String type, int quantity) {
     _cartItems.add({
       'name': name,
       'price': price,
       'size': size,
       'type': type,
+      'quantity': quantity,
     });
   }
 
-  void clearCart() {
-    _cartItems.clear();
+  void removeItem(int index) {
+    if (index >= 0 && index < _cartItems.length) {
+      _cartItems.removeAt(index);
+    }
   }
 
-  void removeItem(int index) {
-    _cartItems.removeAt(index);
-  }
+  List<Map<String, dynamic>> get cartItems => _cartItems;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class CroissantScreen extends StatefulWidget {
   @override
@@ -6,12 +7,11 @@ class CroissantScreen extends StatefulWidget {
 }
 
 class _croissantScreenState extends State<CroissantScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
   bool isRegularSelected = true; // By default, regular is selected
-  double basePrice = 180; // Price for a regular slice
+  double basePrice = 180; // Price for a regular croissant
   int quantity = 1; // Default quantity is 1
   double totalPrice = 180; // Initial total price
 
@@ -52,7 +52,7 @@ class _croissantScreenState extends State<CroissantScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Croissant Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -72,7 +72,7 @@ class _croissantScreenState extends State<CroissantScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Croissant Description
                       Text(
                         'Butter, Flour, Yeast, Milk, and Sugar.',
                         textAlign: TextAlign.center,
@@ -91,7 +91,6 @@ class _croissantScreenState extends State<CroissantScreen> {
                     ],
                   ),
                 ),
-
 
                 // Separator between description and quantity
                 Padding(
@@ -165,8 +164,17 @@ class _croissantScreenState extends State<CroissantScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0) {
+                        // Add the croissant item to the cart
+                        CartManager.instance.addItem(
+                          'Croissant',
+                          totalPrice,
+                          'Piece', // Size for piece
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Ordered $quantity slice(s) of Pan Eu Chocolat for ₱$totalPrice')),
+                          SnackBar(content: Text('Ordered $quantity piece(s) of Croissant for ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

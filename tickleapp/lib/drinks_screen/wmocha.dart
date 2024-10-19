@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class WhiteMochaScreen extends StatefulWidget {
   @override
@@ -330,8 +331,20 @@ class _whiteMochaScreenState extends State<WhiteMochaScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        String type = isHotSelected ? 'Hot' : 'Iced';
+                        String size = isRegularSelected ? '12oz' : '16oz';
+
+                        // Adding the selected item to the cart
+                        CartManager.instance.addItem(
+                          'Mocha',
+                          totalPrice,
+                          size,
+                          type,
+                          quantity,
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Mocha added to cart')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

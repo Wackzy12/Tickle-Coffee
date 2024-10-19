@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class MatchaScreen extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class MatchaScreen extends StatefulWidget {
 }
 
 class _matchaScreenState extends State<MatchaScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -55,7 +55,7 @@ class _matchaScreenState extends State<MatchaScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Matcha Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -75,7 +75,7 @@ class _matchaScreenState extends State<MatchaScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Matcha Description
                       Text(
                         'Made by combining matcha powder with steamed milk.',
                         textAlign: TextAlign.center,
@@ -94,7 +94,6 @@ class _matchaScreenState extends State<MatchaScreen> {
                     ],
                   ),
                 ),
-
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -126,6 +125,7 @@ class _matchaScreenState extends State<MatchaScreen> {
                     ],
                   ),
                 ),
+
                 // Coffee Type Selection (Hot / Iced)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -331,8 +331,17 @@ class _matchaScreenState extends State<MatchaScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        // Add item to cart
+                        CartManager.instance.addItem(
+                          'Matcha Latte',
+                          totalPrice,
+                          isRegularSelected ? '12oz' : '16oz',
+                          isHotSelected ? 'Hot' : 'Iced',
+                          quantity,
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Matcha Latte ordered: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '/cart_screen/cart_manager.dart';
 class CarbonaraScreen extends StatefulWidget {
   @override
   State<CarbonaraScreen> createState() => _carbonaraScreenState();
@@ -233,8 +233,18 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Regular' : 'Large';
+
+                        CartManager.instance.addItem(
+                          'Carbonara',
+                          totalPrice,
+                          size,
+                          'Food', // Or you can have a more specific type if needed
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Carbonara added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

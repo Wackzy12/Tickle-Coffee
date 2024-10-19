@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class ChaiScreen extends StatefulWidget {
   @override
-  State<ChaiScreen> createState() => _chaiScreenState();
+  State<ChaiScreen> createState() => _ChaiScreenState();
 }
 
-class _chaiScreenState extends State<ChaiScreen> {
-
+class _ChaiScreenState extends State<ChaiScreen> {
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -23,6 +23,7 @@ class _chaiScreenState extends State<ChaiScreen> {
       totalPrice = basePrice * quantity;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +55,7 @@ class _chaiScreenState extends State<ChaiScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Chai Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -74,7 +75,7 @@ class _chaiScreenState extends State<ChaiScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Chai Description
                       Text(
                         'Black tea with a mixture of aromatic spices, milk, and sweetener.',
                         textAlign: TextAlign.center,
@@ -94,7 +95,7 @@ class _chaiScreenState extends State<ChaiScreen> {
                   ),
                 ),
 
-
+                // Type Selection
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Row(
@@ -138,8 +139,8 @@ class _chaiScreenState extends State<ChaiScreen> {
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -157,7 +158,7 @@ class _chaiScreenState extends State<ChaiScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20), // Space between the buttons
+                    SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -166,8 +167,8 @@ class _chaiScreenState extends State<ChaiScreen> {
                         });
                       },
                       child: Container(
-                        width: 150, // Set the desired width
-                        height: 50,  // Set the desired height
+                        width: 150,
+                        height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                           color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
@@ -189,7 +190,7 @@ class _chaiScreenState extends State<ChaiScreen> {
                 ),
                 SizedBox(height: 10),
 
-                // Separator between Select Type and Select Size
+                // Size Selection
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Row(
@@ -331,12 +332,28 @@ class _chaiScreenState extends State<ChaiScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        String type = isHotSelected ? 'Hot' : 'Iced';
+                        String size = isRegularSelected ? '12oz' : '16oz';
+
+                        // Adding the selected item to the cart
+                        CartManager.instance.addItem(
+                          'Chai',
+                          totalPrice,
+                          size,
+                          type,
+                          quantity,
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                          SnackBar(
+                            content: Text('Chai ordered: ₱$totalPrice'),
+                          ),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Please select all options')),
+                          SnackBar(
+                            content: Text('Please select all options'),
+                          ),
                         );
                       }
                     },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart'; // Make sure to import the CartManager
 
 class LasagnaScreen extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class LasagnaScreen extends StatefulWidget {
 }
 
 class _lasagnaScreenState extends State<LasagnaScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -21,6 +21,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
       totalPrice = basePrice * quantity;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +53,12 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Lasagna Label and Description
                 Center(
                   child: Column(
                     children: [
                       Text(
-                        'lasagna',
+                        'Lasagna',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -72,7 +73,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Lasagna Description
                       Text(
                         'Flat pasta sheets with meat sauce, Béchamel, and cheese.\n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
@@ -91,7 +92,6 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                     ],
                   ),
                 ),
-
 
                 // Food Size Selection (Regular / Large)
                 Row(
@@ -200,8 +200,19 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Regular' : 'Large';
+
+                        // Add the lasagna item to the cart
+                        CartManager.instance.addItem(
+                          'Lasagna',
+                          totalPrice,
+                          size,
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Lasagna added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

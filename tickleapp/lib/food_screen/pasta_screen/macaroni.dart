@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class MacaroniScreen extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class MacaroniScreen extends StatefulWidget {
 }
 
 class _macaroniScreenState extends State<MacaroniScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -21,7 +21,6 @@ class _macaroniScreenState extends State<MacaroniScreen> {
       totalPrice = basePrice * quantity;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +53,12 @@ class _macaroniScreenState extends State<MacaroniScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Macaroni Label and Description
                 Center(
                   child: Column(
                     children: [
                       Text(
-                        'Macaroni and Cheese.',
+                        'Macaroni and Cheese',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -74,9 +73,9 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Macaroni Description
                       Text(
-                        'Macaroni, Mixture of melted cheese, Butter, Milk, and Cream. \n Regular = 1 Person.\n Large = 2-3 Persons.',
+                        'Macaroni, mixture of melted cheese, butter, milk, and cream.\n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -94,7 +93,7 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                   ),
                 ),
 
-                // Coffee Size Selection (Regular / Large)
+                // Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -201,8 +200,19 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Regular' : 'Large';
+
+                        // Add the macaroni item to the cart
+                        CartManager.instance.addItem(
+                          'Macaroni',
+                          totalPrice,
+                          size,
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Macaroni added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

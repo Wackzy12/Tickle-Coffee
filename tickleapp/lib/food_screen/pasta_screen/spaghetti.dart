@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart'; // Ensure you import your CartManager class
 
 class SpaghettiScreen extends StatefulWidget {
   @override
@@ -7,8 +8,8 @@ class SpaghettiScreen extends StatefulWidget {
 
 class _spaghettiScreenState extends State<SpaghettiScreen> {
 
-  final double coffeeBackgroundHeight = 300;
-  final double mochaTextTopPadding = 10;
+  final double spaghettiBackgroundHeight = 300;
+  final double spaghettiTextTopPadding = 10;
 
   bool isRegularSelected = false;
   bool isLargeSelected = false;
@@ -21,7 +22,6 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
       totalPrice = basePrice * quantity;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
       body: Stack(
         children: [
           Container(
-            height: coffeeBackgroundHeight,
+            height: spaghettiBackgroundHeight,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/spaghetti.jpg'),
@@ -52,9 +52,9 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
+                SizedBox(height: spaghettiBackgroundHeight - spaghettiTextTopPadding),
 
-                // Mocha Label and Description
+                // Spaghetti Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -74,7 +74,6 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
                       Text(
                         'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine,\n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
@@ -94,8 +93,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                   ),
                 ),
 
-
-                // Coffee Size Selection (Regular / Large)
+                // Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -202,8 +200,19 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Regular' : 'Large';
+
+                        // Add the spaghetti item to the cart
+                        CartManager.instance.addItem(
+                          'Spaghetti',
+                          totalPrice,
+                          size,
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Spaghetti added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

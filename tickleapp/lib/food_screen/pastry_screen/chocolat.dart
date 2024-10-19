@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class ChocolatScreen extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class ChocolatScreen extends StatefulWidget {
 }
 
 class _chocolatScreenState extends State<ChocolatScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -164,6 +164,15 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0) {
+                        // Add the chocolat item to the cart
+                        CartManager.instance.addItem(
+                          'Pan Eu Chocolat',
+                          totalPrice,
+                          'Piece', // Size for piece
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Ordered $quantity slice(s) of Pan Eu Chocolat for ₱$totalPrice')),
                         );

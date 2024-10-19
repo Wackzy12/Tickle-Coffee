@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../cart_screen/cart_manager.dart'; // Import the cart manager
+import '/cart_screen/cart_manager.dart'; // Import the cart manager
 
 class AmericanoScreen extends StatefulWidget {
   @override
@@ -134,6 +134,8 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isHotSelected = true;
                           isIcedSelected = false;
+                          basePrice = isRegularSelected ? 120 : 140; // Update price based on size
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
@@ -162,6 +164,8 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isIcedSelected = true;
                           isHotSelected = false;
+                          basePrice = isRegularSelected ? 120 : 140; // Update price based on size
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
@@ -188,6 +192,38 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                 ),
                 SizedBox(height: 10),
 
+                // Separator between Select Type and Select Size
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          "Select Size",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 // Coffee Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -197,8 +233,8 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          basePrice = 120; // Price for Regular
-                          _updateTotalPrice();
+                          basePrice = isHotSelected ? 120 : 120; // Price for Regular
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
@@ -227,8 +263,8 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          basePrice = 140; // Price for Large
-                          _updateTotalPrice();
+                          basePrice = isHotSelected ? 140 : 140; // Price for Large
+                          _updateTotalPrice(); // Update total price
                         });
                       },
                       child: Container(
@@ -297,8 +333,19 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        String type = isHotSelected ? 'Hot' : 'Iced';
+                        String size = isRegularSelected ? '12oz' : '16oz';
+
+                        CartManager.instance.addItem(
+                          'Americano',
+                          totalPrice,
+                          size,
+                          type,
+                          quantity,
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Americano ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Americano added to cart')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

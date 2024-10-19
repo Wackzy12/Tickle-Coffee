@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/cart_screen/cart_manager.dart';
 
 class CinnamonScreen extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class CinnamonScreen extends StatefulWidget {
 }
 
 class _cinnamonScreenState extends State<CinnamonScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -73,7 +73,6 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
                       Text(
                         'Dough, Cinnamon, Brown sugar, Butter, and Cream cheese frosting.',
                         textAlign: TextAlign.center,
@@ -92,7 +91,6 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                     ],
                   ),
                 ),
-
 
                 // Separator between Select Type and Select Size
                 Padding(
@@ -127,7 +125,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                   ),
                 ),
 
-                // Coffee Size Selection (Regular / Large)
+                // Size Selection (Piece / Whole Tray)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -136,7 +134,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          basePrice = 150; // Set price for Regular
+                          basePrice = 150; // Set price for Piece
                           _updateTotalPrice();
                         });
                       },
@@ -166,7 +164,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          basePrice = 1000; // Set price for Large
+                          basePrice = 1000; // Set price for Whole Tray
                           _updateTotalPrice();
                         });
                       },
@@ -234,8 +232,19 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Piece' : 'Whole Tray';
+
+                        // Add the cinnamon item to the cart
+                        CartManager.instance.addItem(
+                          'Cinnamon Roll',
+                          totalPrice,
+                          size,
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Cinnamon Roll added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

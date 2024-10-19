@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
+import '/cart_screen/cart_manager.dart';
 class RavioliScreen extends StatefulWidget {
   @override
   State<RavioliScreen> createState() => _ravioliScreenState();
 }
 
 class _ravioliScreenState extends State<RavioliScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -21,7 +20,6 @@ class _ravioliScreenState extends State<RavioliScreen> {
       totalPrice = basePrice * quantity;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class _ravioliScreenState extends State<RavioliScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Ravioli Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -74,7 +72,7 @@ class _ravioliScreenState extends State<RavioliScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Ravioli Description
                       Text(
                         'Stuffed pasta, Cheese, Meat, Vegetables, and Cream-based sauce.\n Regular = 1 Person.\n Large = 2-3 Persons.',
                         textAlign: TextAlign.center,
@@ -94,8 +92,7 @@ class _ravioliScreenState extends State<RavioliScreen> {
                   ),
                 ),
 
-
-                // Coffee Size Selection (Regular / Large)
+                // Ravioli Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -202,8 +199,19 @@ class _ravioliScreenState extends State<RavioliScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (totalPrice > 0 && (isRegularSelected || isLargeSelected)) {
+                        String size = isRegularSelected ? 'Regular' : 'Large';
+
+                        // Add the ravioli item to the cart
+                        CartManager.instance.addItem(
+                          'Ravioli',
+                          totalPrice,
+                          size,
+                          'Food', // Specify the type
+                          quantity, // Pass the selected quantity
+                        );
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Carbonara ordered: ₱$totalPrice')),
+                          SnackBar(content: Text('Ravioli added to cart: ₱$totalPrice')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

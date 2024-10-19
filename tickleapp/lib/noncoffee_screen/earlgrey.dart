@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tickleapp/cart_screen/cart_manager.dart';
 
 class EarlgreyScreen extends StatefulWidget {
   @override
@@ -6,7 +7,6 @@ class EarlgreyScreen extends StatefulWidget {
 }
 
 class _earlgreyScreenState extends State<EarlgreyScreen> {
-
   final double coffeeBackgroundHeight = 300;
   final double mochaTextTopPadding = 10;
 
@@ -55,7 +55,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
               children: [
                 SizedBox(height: coffeeBackgroundHeight - mochaTextTopPadding),
 
-                // Mocha Label and Description
+                // Earl Grey Label and Description
                 Center(
                   child: Column(
                     children: [
@@ -75,7 +75,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         ),
                       ),
                       SizedBox(height: 5),
-                      // Mocha Description
+                      // Earl Grey Description
                       Text(
                         'Fragrant black tea flavored with oil from the rind of bergamot oranges, giving it a distinctive citrus aroma and flavor.',
                         textAlign: TextAlign.center,
@@ -94,7 +94,6 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                     ],
                   ),
                 ),
-
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -126,34 +125,32 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                     ],
                   ),
                 ),
-                // Coffee Type Selection (Hot / Iced)
+                // Tea Type Selection (Hot / Iced)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isHotSelected = !isHotSelected;
+                          isHotSelected = true;
                           isIcedSelected = false; // Deselect the other option
+                          basePrice = 120; // Base price for Hot
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
                         width: 150,
-                        // Set the desired width
                         height: 50,
-                        // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isHotSelected ? Color(0xFF112e12) : Colors
-                              .grey[300],
+                          color: isHotSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Hot',
                             style: TextStyle(
-                              color: isHotSelected ? Colors.white : Color(
-                                  0xFF112e12),
+                              color: isHotSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -165,27 +162,25 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          isIcedSelected = !isIcedSelected;
+                          isIcedSelected = true;
                           isHotSelected = false; // Deselect the other option
+                          basePrice = 140; // Base price for Iced
+                          _updateTotalPrice();
                         });
                       },
                       child: Container(
                         width: 150,
-                        // Set the desired width
                         height: 50,
-                        // Set the desired height
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isIcedSelected ? Color(0xFF112e12) : Colors
-                              .grey[300],
+                          color: isIcedSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             'Iced',
                             style: TextStyle(
-                              color: isIcedSelected ? Colors.white : Color(
-                                  0xFF112e12),
+                              color: isIcedSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -230,7 +225,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                   ),
                 ),
 
-                // Coffee Size Selection (Regular / Large)
+                // Tea Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -239,7 +234,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         setState(() {
                           isRegularSelected = true;
                           isLargeSelected = false;
-                          basePrice = 120; // Price for Regular
+                          basePrice = isHotSelected ? 120 : 140; // Set price based on type
                           _updateTotalPrice();
                         });
                       },
@@ -248,16 +243,14 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isRegularSelected ? Color(0xFF112e12) : Colors
-                              .grey[300],
+                          color: isRegularSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             '12oz',
                             style: TextStyle(
-                              color: isRegularSelected ? Colors.white : Color(
-                                  0xFF112e12),
+                              color: isRegularSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -271,7 +264,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         setState(() {
                           isLargeSelected = true;
                           isRegularSelected = false;
-                          basePrice = 140; // Price for Large
+                          basePrice = isHotSelected ? 140 : 160; // Set price based on type
                           _updateTotalPrice();
                         });
                       },
@@ -280,16 +273,14 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         height: 50,
                         padding: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
-                          color: isLargeSelected ? Color(0xFF112e12) : Colors
-                              .grey[300],
+                          color: isLargeSelected ? Color(0xFF112e12) : Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
                           child: Text(
                             '16oz',
                             style: TextStyle(
-                              color: isLargeSelected ? Colors.white : Color(
-                                  0xFF112e12),
+                              color: isLargeSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -343,9 +334,18 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                       if (totalPrice > 0 &&
                           (isHotSelected || isIcedSelected) &&
                           (isRegularSelected || isLargeSelected)) {
+                        // Add item to cart
+                        CartManager.instance.addItem(
+                          'Earl Grey Tea',
+                          totalPrice,
+                          isRegularSelected ? '12oz' : '16oz',
+                          isHotSelected ? 'Hot' : 'Iced',
+                          quantity,
+                        );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text('Americano ordered: ₱$totalPrice')),
+                            content: Text('Earl Grey Tea added to cart: ₱$totalPrice'),
+                          ),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -358,8 +358,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
