@@ -4,7 +4,7 @@ import 'package:tickleapp/food_screen/pastry_screen/croissant.dart';
 import 'package:tickleapp/noncoffee_screen/matcha.dart';
 import '../drinks_screen/mocha.dart';
 import '../cart_screen/cart_screen.dart';
-
+import '../favorite_screen/favorites.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -48,7 +48,15 @@ class _homeScreenState extends State<HomeScreen> {
               child: Icon(Icons.shopping_cart, color: Colors.white),
             ),
             SizedBox(width: 16),
-            Icon(Icons.favorite, color: Colors.white),
+            IconButton(
+              icon: Icon(Icons.favorite, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FavoritesScreen()),
+                );
+              },
+            ),
           ],
         ),
       ),
