@@ -16,9 +16,17 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
   double totalPrice = 0;
   int quantity = 1; // Quantity starts at 1
 
+  bool isFavorited = false; // Track whether the item is favorited
+
   void _updateTotalPrice() {
     setState(() {
       totalPrice = basePrice * quantity;
+    });
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorited = !isFavorited;
     });
   }
 
@@ -34,6 +42,15 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isFavorited ? Icons.favorite : Icons.favorite_border,
+              color: isFavorited ? Colors.red : Colors.white,
+            ),
+            onPressed: _toggleFavorite, // Toggle favorite status
+          ),
+        ],
       ),
       body: Stack(
         children: [

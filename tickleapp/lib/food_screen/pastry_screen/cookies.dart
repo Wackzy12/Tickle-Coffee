@@ -14,10 +14,17 @@ class _cookiesScreenState extends State<CookiesScreen> {
   double basePrice = 110; // Price for a regular cookie
   int quantity = 1; // Default quantity is 1
   double totalPrice = 110; // Initial total price
+  bool isFavorited = false; // Track whether the item is favorited
 
   void _updateTotalPrice() {
     setState(() {
       totalPrice = basePrice * quantity;
+    });
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorited = !isFavorited;
     });
   }
 
@@ -33,6 +40,15 @@ class _cookiesScreenState extends State<CookiesScreen> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isFavorited ? Icons.favorite : Icons.favorite_border,
+              color: isFavorited ? Colors.red : Colors.white,
+            ),
+            onPressed: _toggleFavorite, // Toggle favorite status
+          ),
+        ],
       ),
       body: Stack(
         children: [

@@ -14,7 +14,6 @@ class _chocolatScreenState extends State<ChocolatScreen> {
   double basePrice = 150; // Price for a regular slice
   int quantity = 1; // Default quantity is 1
   double totalPrice = 150; // Initial total price
-
   bool isFavorited = false; // Track whether the item is favorited
 
   void _updateTotalPrice() {
