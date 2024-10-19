@@ -1,4 +1,3 @@
-
 class CartManager {
   static final CartManager _instance = CartManager._internal();
   List<Map<String, dynamic>> _cartItems = [];
