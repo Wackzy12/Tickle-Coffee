@@ -28,15 +28,15 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
   Future<void> _checkIfFavorited() async {
     List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      isFavorited = favorites.contains('Americano');
+      isFavorited = favorites.contains('Spaghetti Bolognese');
     });
   }
 
   void _toggleFavorite() async {
     if (isFavorited) {
-      await FavoritesManager().removeFavorite('Americano');
+      await FavoritesManager().removeFavorite('Spaghetti Bolognese');
     } else {
-      await FavoritesManager().addFavorite('Americano');
+      await FavoritesManager().addFavorite('Spaghetti Bolognese');
     }
     setState(() {
       isFavorited = !isFavorited;

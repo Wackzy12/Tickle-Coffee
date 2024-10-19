@@ -26,15 +26,15 @@ class _croissantScreenState extends State<CroissantScreen> {
   Future<void> _checkIfFavorited() async {
     List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      isFavorited = favorites.contains('Americano');
+      isFavorited = favorites.contains('Croissant');
     });
   }
 
   void _toggleFavorite() async {
     if (isFavorited) {
-      await FavoritesManager().removeFavorite('Americano');
+      await FavoritesManager().removeFavorite('Croissant');
     } else {
-      await FavoritesManager().addFavorite('Americano');
+      await FavoritesManager().addFavorite('Croissant');
     }
     setState(() {
       isFavorited = !isFavorited;

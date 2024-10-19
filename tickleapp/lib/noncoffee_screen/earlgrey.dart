@@ -29,15 +29,15 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
   Future<void> _checkIfFavorited() async {
     List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      isFavorited = favorites.contains('Americano');
+      isFavorited = favorites.contains('Earl Grey Tea');
     });
   }
 
   void _toggleFavorite() async {
     if (isFavorited) {
-      await FavoritesManager().removeFavorite('Americano');
+      await FavoritesManager().removeFavorite('Earl Grey Tea');
     } else {
-      await FavoritesManager().addFavorite('Americano');
+      await FavoritesManager().addFavorite('Earl Grey Tea');
     }
     setState(() {
       isFavorited = !isFavorited;

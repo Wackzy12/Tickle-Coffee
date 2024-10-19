@@ -28,15 +28,15 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
   Future<void> _checkIfFavorited() async {
     List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      isFavorited = favorites.contains('Americano');
+      isFavorited = favorites.contains('Carbonara');
     });
   }
 
   void _toggleFavorite() async {
     if (isFavorited) {
-      await FavoritesManager().removeFavorite('Americano');
+      await FavoritesManager().removeFavorite('Carbonara');
     } else {
-      await FavoritesManager().addFavorite('Americano');
+      await FavoritesManager().addFavorite('Carbonara');
     }
     setState(() {
       isFavorited = !isFavorited;

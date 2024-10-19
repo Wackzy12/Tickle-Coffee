@@ -26,15 +26,15 @@ class _cookiesScreenState extends State<CookiesScreen> {
   Future<void> _checkIfFavorited() async {
     List<String> favorites = await FavoritesManager().getFavorites();
     setState(() {
-      isFavorited = favorites.contains('Americano');
+      isFavorited = favorites.contains('Cookies');
     });
   }
 
   void _toggleFavorite() async {
     if (isFavorited) {
-      await FavoritesManager().removeFavorite('Americano');
+      await FavoritesManager().removeFavorite('Cookies');
     } else {
-      await FavoritesManager().addFavorite('Americano');
+      await FavoritesManager().addFavorite('Cookies');
     }
     setState(() {
       isFavorited = !isFavorited;
