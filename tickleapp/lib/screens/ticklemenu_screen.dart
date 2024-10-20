@@ -69,27 +69,38 @@ class MenuScreen extends StatelessWidget {
   Widget _buildMenuItem({
     required String imagePath,
     required String title,
-    required VoidCallback onTap, // Add onTap callback
+    required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap, // Trigger navigation when tapped
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 100, // Decrease radius for smaller image
-            backgroundImage: AssetImage(imagePath),
-            backgroundColor: Colors.transparent,
+      child: Card(
+        elevation: 4, // Shadow effect
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10), // Rounded corners
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0), // Padding inside the card
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 50, // Adjusted radius for smaller image
+                backgroundImage: AssetImage(imagePath),
+                backgroundColor: Colors.transparent,
+              ),
+              SizedBox(width: 20), // Space between the image and text
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black, // Adjusted text color for better contrast
+                    fontWeight: FontWeight.bold, // Bolder font for emphasis
+                  ),
+                ),
+              ),
+            ],
           ),
-          SizedBox(width: 20), // Space between the image and text
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black, // Adjusted text color for better contrast
-              fontWeight: FontWeight.bold, // Bolder font for emphasis
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
