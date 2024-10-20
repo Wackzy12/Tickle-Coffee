@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tickleapp/cart_screen/cart_manager.dart';
 import '/favorite_screen/favorites_manager.dart';
@@ -20,28 +21,35 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
   int quantity = 1; // Quantity starts at 1
   bool isFavorited = false;
 
+  User? currentUser; // Declare user variable
+
   @override
   void initState() {
     super.initState();
+    currentUser = FirebaseAuth.instance.currentUser; // Get current user
     _checkIfFavorited();
   }
 
   Future<void> _checkIfFavorited() async {
-    List<String> favorites = await FavoritesManager().getFavorites();
-    setState(() {
-      isFavorited = favorites.contains('Earl Grey Tea');
-    });
+    if (currentUser != null) { // Check if user is logged in
+      List<String> favorites = await FavoritesManager().getFavorites(currentUser!.uid);
+      setState(() {
+        isFavorited = favorites.contains('Earl Grey Tea');
+      });
+    }
   }
 
   void _toggleFavorite() async {
-    if (isFavorited) {
-      await FavoritesManager().removeFavorite('Earl Grey Tea');
-    } else {
-      await FavoritesManager().addFavorite('Earl Grey Tea');
+    if (currentUser != null) { // Check if user is logged in
+      if (isFavorited) {
+        await FavoritesManager().removeFavorite(currentUser!.uid, 'Earl Grey Tea');
+      } else {
+        await FavoritesManager().addFavorite(currentUser!.uid, 'Earl Grey Tea');
+      }
+      setState(() {
+        isFavorited = !isFavorited;
+      });
     }
-    setState(() {
-      isFavorited = !isFavorited;
-    });
   }
 
   void _updateTotalPrice() {

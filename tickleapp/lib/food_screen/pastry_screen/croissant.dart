@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '/cart_screen/cart_manager.dart';
 import '/favorite_screen/favorites_manager.dart';
@@ -17,28 +18,35 @@ class _croissantScreenState extends State<CroissantScreen> {
   double totalPrice = 180; // Initial total price
   bool isFavorited = false;
 
+  User? currentUser; // Declare user variable
+
   @override
   void initState() {
     super.initState();
-    _checkIfFavorited();
+    currentUser = FirebaseAuth.instance.currentUser; // Get current user
+    _checkIfFavorited(); // Check if it's favorited
   }
 
   Future<void> _checkIfFavorited() async {
-    List<String> favorites = await FavoritesManager().getFavorites();
-    setState(() {
-      isFavorited = favorites.contains('Croissant');
-    });
+    if (currentUser != null) { // Check if user is logged in
+      List<String> favorites = await FavoritesManager().getFavorites(currentUser!.uid);
+      setState(() {
+        isFavorited = favorites.contains('Croissant');
+      });
+    }
   }
 
   void _toggleFavorite() async {
-    if (isFavorited) {
-      await FavoritesManager().removeFavorite('Croissant');
-    } else {
-      await FavoritesManager().addFavorite('Croissant');
+    if (currentUser != null) { // Check if user is logged in
+      if (isFavorited) {
+        await FavoritesManager().removeFavorite(currentUser!.uid, 'Croissant');
+      } else {
+        await FavoritesManager().addFavorite(currentUser!.uid, 'Croissant');
+      }
+      setState(() {
+        isFavorited = !isFavorited;
+      });
     }
-    setState(() {
-      isFavorited = !isFavorited;
-    });
   }
 
   void _updateTotalPrice() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tickleapp/profile_screens/payments_screens/store_credits.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   @override
@@ -6,48 +7,60 @@ class PaymentMethodScreen extends StatefulWidget {
 }
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
-  String _selectedPaymentMethod = 'Cash';
-  final TextEditingController _cardNumberController = TextEditingController();
-
-  void _submitPayment() {
-    if (_selectedPaymentMethod == 'Cash') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Payment method: Cash')),
-      );
-    } else if (_selectedPaymentMethod == 'Card') {
-      if (_cardNumberController.text.isEmpty || _cardNumberController.text.length != 16) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please enter a valid 16-digit card number')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Payment method: Card\nCard Number: ${_cardNumberController.text}')),
-        );
-      }
-    } else if (_selectedPaymentMethod == 'Gcash') {
-      // Logic for Gcash QR handling (e.g., redirect to QR scanner)
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Payment method: Gcash QR')),
-      );
-    } else if (_selectedPaymentMethod == 'PayPal') {
-      // Logic for PayPal handling (e.g., redirect to PayPal payment page)
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Payment method: PayPal')),
-      );
-    }
+  // Navigate to the respective screens based on the payment method
+  void _navigateToCreditScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddCreditsScreen(),
+      ),
+    );
   }
 
-  @override
-  void dispose() {
-    _cardNumberController.dispose();
-    super.dispose();
+  void _navigateToGcashScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddCreditsScreen(),
+      ),
+    );
+  }
+
+  void _navigateToPaypalScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddCreditsScreen(),
+      ),
+    );
+  }
+
+  void _navigateToCardScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddCreditsScreen(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // Set background color to white
       appBar: AppBar(
-        title: Text('Payment Method'),
+        title: Text(
+          'Payment Methods',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: Color(0xFF112e12),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,71 +76,28 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
             SizedBox(height: 16),
             ListTile(
-              title: const Text('Cash'),
-              leading: Radio<String>(
-                value: 'Cash',
-                groupValue: _selectedPaymentMethod,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedPaymentMethod = value!;
-                  });
-                },
-              ),
+              title: const Text('Store Credits'),
+              onTap: () {
+                _navigateToCreditScreen(context);
+              },
             ),
             ListTile(
               title: const Text('Gcash QR'),
-              leading: Radio<String>(
-                value: 'Gcash',
-                groupValue: _selectedPaymentMethod,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedPaymentMethod = value!;
-                  });
-                },
-              ),
+              onTap: () {
+                _navigateToGcashScreen(context);
+              },
             ),
             ListTile(
               title: const Text('PayPal'),
-              leading: Radio<String>(
-                value: 'PayPal',
-                groupValue: _selectedPaymentMethod,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedPaymentMethod = value!;
-                  });
-                },
-              ),
+              onTap: () {
+                _navigateToPaypalScreen(context);
+              },
             ),
             ListTile(
               title: const Text('Card'),
-              leading: Radio<String>(
-                value: 'Card',
-                groupValue: _selectedPaymentMethod,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedPaymentMethod = value!;
-                  });
-                },
-              ),
-            ),
-            if (_selectedPaymentMethod == 'Card') ...[
-              SizedBox(height: 16),
-              TextField(
-                controller: _cardNumberController,
-                keyboardType: TextInputType.number,
-                maxLength: 16,
-                decoration: InputDecoration(
-                  labelText: 'Card Number',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ],
-            SizedBox(height: 24),
-            Center(
-              child: ElevatedButton(
-                onPressed: _submitPayment,
-                child: Text('Submit Payment'),
-              ),
+              onTap: () {
+                _navigateToCardScreen(context);
+              },
             ),
           ],
         ),

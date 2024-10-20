@@ -26,6 +26,11 @@ import '../food_screen/pastry_screen/cinnamon.dart';
 import '../food_screen/pastry_screen/cookies.dart';
 
 class FavoritesScreen extends StatefulWidget {
+  final String userId; // Pass the user ID when initializing the screen
+
+  const FavoritesScreen({Key? key, required this.userId}) : super(key: key);
+
+
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
@@ -36,21 +41,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-    _loadFavorites(); // Initialize the favorites
+    _loadFavorites();
   }
 
   void _loadFavorites() {
     setState(() {
-      _favoritesFuture = FavoritesManager().getFavorites();
+      _favoritesFuture = FavoritesManager().getFavorites(widget.userId);
     });
   }
 
   Future<void> _refreshFavorites() async {
-    _loadFavorites(); // Refresh the favorites
+    _loadFavorites();
   }
 
   Widget _getFavoriteScreen(String favorite) {
-    // Map favorites to their respective screens
     switch (favorite) {
 
       case 'Mocha':
@@ -129,8 +133,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.remove_circle),
                   onPressed: () async {
-                    await FavoritesManager().removeFavorite(favorite);
-                    _refreshFavorites(); // Refresh the UI after removing
+                    await FavoritesManager().removeFavorite(widget.userId, favorite);
+                    _refreshFavorites();
                   },
                 ),
                 onTap: () {
@@ -140,7 +144,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       builder: (context) => _getFavoriteScreen(favorite),
                     ),
                   ).then((_) {
-                    _refreshFavorites(); // Refresh favorites when coming back
+                    _refreshFavorites();
                   });
                 },
               );
@@ -151,3 +155,5 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     );
   }
 }
+
+

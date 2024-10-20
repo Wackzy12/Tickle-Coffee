@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FavoritesManager {
   static final FavoritesManager _instance = FavoritesManager._internal();
@@ -6,24 +6,24 @@ class FavoritesManager {
 
   FavoritesManager._internal();
 
-  Future<List<String>> getFavorites() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList('favorites') ?? [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<String>> getFavorites(String userId) async {
+    final doc = await _firestore.collection('Users').doc(userId).get();
+    return doc.exists ? List<String>.from(doc.data()?['favorites'] ?? []) : [];
   }
 
-  Future<void> addFavorite(String item) async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String> favorites = await getFavorites();
-    if (!favorites.contains(item)) {
-      favorites.add(item);
-      await prefs.setStringList('favorites', favorites);
-    }
+  Future<void> addFavorite(String userId, String item) async {
+    final docRef = _firestore.collection('Users').doc(userId);
+    await docRef.set({
+      'favorites': FieldValue.arrayUnion([item])
+    }, SetOptions(merge: true));
   }
 
-  Future<void> removeFavorite(String item) async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String> favorites = await getFavorites();
-    favorites.remove(item);
-    await prefs.setStringList('favorites', favorites);
+  Future<void> removeFavorite(String userId, String item) async {
+    final docRef = _firestore.collection('Users').doc(userId);
+    await docRef.set({
+      'favorites': FieldValue.arrayRemove([item])
+    }, SetOptions(merge: true));
   }
 }

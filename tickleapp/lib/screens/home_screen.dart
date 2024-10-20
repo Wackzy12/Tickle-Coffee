@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tickleapp/food_screen/pasta_screen/spaghetti.dart';
 import 'package:tickleapp/food_screen/pastry_screen/croissant.dart';
@@ -12,6 +14,50 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<HomeScreen> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _currentUser;
+  double _credits = 0.0;  // Changed to double to store the user's credit balance
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentUser();
+  }
+
+  // Fetch the current logged-in user and retrieve credits
+  void _getCurrentUser() {
+    _currentUser = _auth.currentUser;
+    if (_currentUser != null) {
+      _fetchCredits();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No user logged in!')),
+      );
+    }
+  }
+
+  // Fetch credits from Firestore
+  Future<void> _fetchCredits() async {
+    try {
+      DocumentSnapshot userDoc = await _firestore.collection('Users').doc(_currentUser!.uid).get();
+      if (userDoc.exists) {
+        setState(() {
+          // Cast userDoc.data() to a Map<String, dynamic> and access the 'credits'
+          _credits = (userDoc.data() as Map<String, dynamic>)['credits']?.toDouble() ?? 0.0;  // Convert to double
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User data not found!')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error fetching credits: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +99,7 @@ class _homeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FavoritesScreen()),
+                  MaterialPageRoute(builder: (context) => FavoritesScreen(userId: _currentUser!.uid)),
                 );
               },
             ),
@@ -84,7 +130,7 @@ class _homeScreenState extends State<HomeScreen> {
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            '\$5,500.50',
+                            '₱${_credits.toStringAsFixed(2)}',  // Display the fetched credits with two decimal places
                             style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.bold,
@@ -94,7 +140,7 @@ class _homeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          'Balance',
+                          'Credits Balance',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white.withOpacity(0.8),
@@ -119,17 +165,14 @@ class _homeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 SizedBox(height: 16),
-                // Horizontal list of popular menu items
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      MenuItem(imagePath:'assets/mocha.jpg', screen: MochaScreen()),
-                      MenuItem(imagePath: 'assets/matcha.jpg', screen:MatchaScreen(),),
-                      MenuItem(imagePath: 'assets/croissant.jpg', screen: CroissantScreen(),),
-                      MenuItem(imagePath: 'assets/spaghetti.jpg', screen: SpaghettiScreen(),),
-                      //MenuItem(imagePath: 'assets/cinnamon.jpg'),
-                      //MenuItem(imagePath: 'assets/blueberrycheese.jpg'),
+                      MenuItem(imagePath: 'assets/mocha.jpg', screen: MochaScreen()),
+                      MenuItem(imagePath: 'assets/matcha.jpg', screen: MatchaScreen()),
+                      MenuItem(imagePath: 'assets/croissant.jpg', screen: CroissantScreen()),
+                      MenuItem(imagePath: 'assets/spaghetti.jpg', screen: SpaghettiScreen()),
                     ],
                   ),
                 ),
@@ -153,7 +196,6 @@ class _homeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: 16),
-
                 Container(
                   height: 500,
                   decoration: BoxDecoration(
@@ -172,7 +214,6 @@ class _homeScreenState extends State<HomeScreen> {
     );
   }
 }
-
 
 class MenuItem extends StatelessWidget {
   final String imagePath;
