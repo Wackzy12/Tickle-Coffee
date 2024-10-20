@@ -12,7 +12,7 @@ class _CartScreenState extends State<CartScreen> {
     final cartItems = CartManager.instance.cartItems;
 
     // Calculate total price of items in the cart
-    double totalPrice = cartItems.fold(0, (sum, item) => sum + (item['price'] * item['quantity']));
+    double totalPrice = cartItems.fold(0, (sum, item) => sum + item['price']);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
                 final item = cartItems[index];
                 return ListTile(
                   title: Text('${item['name']} (${item['size']})'),
-                  subtitle: Text('${item['type']} - ₱${item['price']} x ${item['quantity']}'),
+                  subtitle: Text('${item['type']} - ₱${item['price']} , ${item['quantity']}'),
                   trailing: IconButton(
                     icon: Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
