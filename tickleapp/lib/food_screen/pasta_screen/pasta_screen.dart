@@ -47,7 +47,7 @@ class PastaScreen extends StatelessWidget {
           _buildPastaItem(
             context,
             title: 'Spaghetti Bolognese',
-            description: 'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine,',
+            description: 'Spaghetti, Tomatoes, Onions, Carrots, Celery, and Wine.',
             imagePath: 'assets/spaghetti.jpg', // Make sure to have an image for Spaghetti
             screen: SpaghettiScreen(), // Navigate to SpaghettiScreen
           ),
@@ -57,52 +57,62 @@ class PastaScreen extends StatelessWidget {
   }
 }
 
-  Widget _buildPastaItem(
-      BuildContext context, {
-        required String title,
-        required String description,
-        required String imagePath,
-        required Widget screen,
-      }) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => screen),
-        );
-      },
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: AssetImage(imagePath),
-            backgroundColor: Colors.transparent,
-          ),
-          SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  description,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[700],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+Widget _buildPastaItem(
+    BuildContext context, {
+      required String title,
+      required String description,
+      required String imagePath,
+      required Widget screen,
+    }) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      );
+    },
+    child: Card(
+      elevation: 4, // Add elevation for shadow effect
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), // Rounded corners
       ),
-    );
-  }
+      margin: EdgeInsets.symmetric(vertical: 10), // Vertical margin between cards
+      child: Padding(
+        padding: const EdgeInsets.all(16.0), // Padding inside the card
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage(imagePath),
+              backgroundColor: Colors.transparent,
+            ),
+            SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
