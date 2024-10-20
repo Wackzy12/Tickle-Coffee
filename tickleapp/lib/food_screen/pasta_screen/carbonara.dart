@@ -49,6 +49,34 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
     });
   }
 
+  Widget _buildSizeCard(String label, bool isSelected, Function onTap) {
+    return Card(
+      elevation: isSelected ? 8 : 2, // Increase elevation when selected
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: isSelected ? Color(0xFF112e12) : Colors.grey[300],
+      child: InkWell(
+        onTap: () {
+          onTap();
+        },
+        child: Container(
+          width: 150,
+          height: 50,
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Color(0xFF112e12),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
