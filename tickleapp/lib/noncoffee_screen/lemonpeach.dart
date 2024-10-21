@@ -380,12 +380,59 @@ class _LemonpeachScreenState extends State<LemonpeachScreen> {
                           isHotSelected ? 'Hot' : 'Iced',
                           quantity,
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Lemon Peach Tea ordered: ₱$totalPrice')),
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.white,
+                              content: Text(
+                                'Successfully added to Cart',
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text('OK'),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFF112e12),
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         );
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Please select all options')),
+                        // Show error dialog
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.white,
+                              title: Text(
+                                'Error',
+                                textAlign: TextAlign.center,
+                              ),
+                              content: Text(
+                                'Please select all options',
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text('OK'),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFF112e12),
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         );
                       }
                     },

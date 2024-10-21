@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tickleapp/cart_screen/checkout_screen.dart';
 import '/cart_screen/cart_manager.dart'; // Import the cart manager
 
 class CartScreen extends StatefulWidget {
@@ -21,11 +22,30 @@ class _CartScreenState extends State<CartScreen> {
     final cartItems = CartManager.instance.cartItems;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: Text(
+          'Your Cart',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        centerTitle: true,
         backgroundColor: Color(0xFF112e12),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      body: Column(
+      body: cartItems.isEmpty
+          ? Center(
+        child: Text(
+          'No items in cart',
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black54),
+        ),
+      )
+          : Column(
         children: [
           Expanded(
             child: ListView.builder(
@@ -80,7 +100,8 @@ class _CartScreenState extends State<CartScreen> {
                         CartManager.instance.removeItem(index);
                       });
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('${item['name']} removed from cart')),
+                        SnackBar(content: Text(
+                            '${item['name']} removed from cart')),
                       );
                     },
                   ),
@@ -88,7 +109,6 @@ class _CartScreenState extends State<CartScreen> {
               },
             ),
           ),
-
           // Total Price Display
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -97,19 +117,25 @@ class _CartScreenState extends State<CartScreen> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-
           // Checkout Button
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {
-                // Implement the checkout logic here
-                // For now, we just show a snackbar
+              onPressed: cartItems.isNotEmpty ? () {
+                final totalPrice = _calculateTotalPrice(); // Calculate total price here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        CheckoutScreen(
+                            cartItems: cartItems, totalPrice: totalPrice),
+                  ),
+                );
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Proceeding to checkout')),
                 );
-                // Here, you could navigate to a checkout page or process the order
-              },
+              } : null, // Disable button if cartItems is empty
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF112e12),
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),

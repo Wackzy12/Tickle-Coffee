@@ -78,20 +78,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            DropdownButton<String>(
-              value: selectedPaymentMethod,
-              hint: Text('Choose a payment method'),
-              items: paymentMethods.map((String method) {
-                return DropdownMenuItem<String>(
-                  value: method,
-                  child: Text(method),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedPaymentMethod = newValue;
-                });
-              },
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white, // Set the background color to white
+                borderRadius: BorderRadius.circular(4.0),
+                border: Border.all(color: Color(0xFF112e12)),
+              ),
+              child: DropdownButton<String>(
+                value: selectedPaymentMethod,
+                hint: Text('Choose a payment method'),
+                dropdownColor: Colors.white,
+                items: paymentMethods.map((String method) {
+                  return DropdownMenuItem<String>(
+                    value: method,
+                    child: Text(method),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedPaymentMethod = newValue;
+                  });
+                },
+              ),
             ),
 
             SizedBox(height: 20),

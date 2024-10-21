@@ -110,9 +110,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Favorites'),
+        title: Text(
+          'Favorites',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        centerTitle: true,
         backgroundColor: Color(0xFF112e12),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: FutureBuilder<List<String>>(
         future: _favoritesFuture,

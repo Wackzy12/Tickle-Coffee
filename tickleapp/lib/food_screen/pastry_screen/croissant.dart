@@ -216,12 +216,59 @@ class _croissantScreenState extends State<CroissantScreen> {
                           quantity, // Pass the selected quantity
                         );
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Ordered $quantity piece(s) of Croissant for ₱$totalPrice')),
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.white,
+                              content: Text(
+                                'Successfully added to Cart',
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text('OK'),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFF112e12),
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         );
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Please select a valid quantity')),
+                        // Show error dialog
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.white,
+                              title: Text(
+                                'Error',
+                                textAlign: TextAlign.center,
+                              ),
+                              content: Text(
+                                'Enter a valid quantity',
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text('OK'),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFF112e12),
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         );
                       }
                     },
