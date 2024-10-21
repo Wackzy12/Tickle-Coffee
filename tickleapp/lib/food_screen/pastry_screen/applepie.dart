@@ -191,7 +191,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Regular',
+                            'Slice',
                             style: TextStyle(
                               color: isRegularSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,
@@ -221,7 +221,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            'Large',
+                            'Whole',
                             style: TextStyle(
                               color: isLargeSelected ? Colors.white : Color(0xFF112e12),
                               fontSize: 16,

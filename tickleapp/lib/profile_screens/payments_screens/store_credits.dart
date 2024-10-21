@@ -71,7 +71,7 @@ class _AddCreditsScreenState extends State<AddCreditsScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Store Credits',
+          'Tickle Credits',
           style: TextStyle(fontSize: 24, color: Colors.white),
         ),
         centerTitle: true,

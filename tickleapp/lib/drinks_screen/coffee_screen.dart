@@ -9,9 +9,20 @@ class CoffeeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Coffee'),
+        title: Text(
+          'Coffee',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        centerTitle: true,
         backgroundColor: Color(0xFF112e12),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -70,6 +81,7 @@ class CoffeeScreen extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.white,
         elevation: 4,
         // Add elevation for shadow effect
         shape: RoundedRectangleBorder(

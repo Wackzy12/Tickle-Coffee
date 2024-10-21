@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/cart_screen/cart_manager.dart'; // Import the cart manager
+import '/cart_screen/cart_manager.dart';
+import 'checkout_screen.dart'; // Import the cart manager
 
 class CartScreen extends StatefulWidget {
   @override
@@ -15,9 +16,20 @@ class _CartScreenState extends State<CartScreen> {
     double totalPrice = cartItems.fold(0, (sum, item) => sum + item['price']);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: Text(
+          'Your Cart',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        centerTitle: true,
         backgroundColor: Color(0xFF112e12),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -59,12 +71,11 @@ class _CartScreenState extends State<CartScreen> {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {
-                // Implement the checkout logic here
-                // For now, we just show a snackbar
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Proceeding to checkout')),
+                // Navigate to the CheckoutScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckoutScreen(cartItems: cartItems, totalPrice: totalPrice,)),
                 );
-                // Here, you could navigate to a checkout page or process the order
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF112e12),

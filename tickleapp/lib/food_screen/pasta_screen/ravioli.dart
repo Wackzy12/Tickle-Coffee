@@ -136,6 +136,38 @@ class _ravioliScreenState extends State<RavioliScreen> {
                   ),
                 ),
 
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          "Select Size",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Divider(
+                          color: Colors.grey,
+                          thickness: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 // Ravioli Size Selection (Regular / Large)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

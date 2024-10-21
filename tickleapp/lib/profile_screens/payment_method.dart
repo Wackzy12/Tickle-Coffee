@@ -76,13 +76,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
             SizedBox(height: 16),
             ListTile(
-              title: const Text('Store Credits'),
+              title: const Text('Tickle Credits'),
               onTap: () {
                 _navigateToCreditScreen(context);
               },
             ),
             ListTile(
-              title: const Text('Gcash QR'),
+              title: const Text('Gcash'),
               onTap: () {
                 _navigateToGcashScreen(context);
               },
@@ -94,7 +94,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               },
             ),
             ListTile(
-              title: const Text('Card'),
+              title: const Text('Credit Card'),
               onTap: () {
                 _navigateToCardScreen(context);
               },
