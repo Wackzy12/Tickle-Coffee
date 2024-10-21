@@ -25,6 +25,7 @@ class LoadingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+          automaticallyImplyLeading: false,
         title: Text(
           'Tickle Coffee',
           style: TextStyle(fontSize: 24, color: Colors.white),

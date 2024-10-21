@@ -22,16 +22,18 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     }
   }
 
-  Future<void> reAuthenticateUser(String email, String password) async {
+  Future<bool> reAuthenticateUser(String email, String password) async {
     User? user = _auth.currentUser;
 
     AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
 
     try {
       await user?.reauthenticateWithCredential(credential);
+      return true; // Re-authentication successful
     } catch (e) {
       print("Re-authentication failed: $e");
       _showErrorDialog(context, 'Re-authentication failed. Please check your email and password.');
+      return false; // Re-authentication failed
     }
   }
 
@@ -45,9 +47,13 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
         return;
       }
 
-      try {
-        await reAuthenticateUser(emailController.text, passwordController.text);
+      // Re-authenticate the user and check if successful
+      bool isAuthenticated = await reAuthenticateUser(emailController.text, passwordController.text);
+      if (!isAuthenticated) {
+        return; // Exit if re-authentication failed
+      }
 
+      try {
         // Delete the user's data from Firestore
         await _firestore.collection('Users').doc(user.uid).delete();
         // Delete the user account
