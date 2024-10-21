@@ -248,7 +248,7 @@ class _ravioliScreenState extends State<RavioliScreen> {
                         // Add the ravioli item to the cart
                         CartManager.instance.addItem(
                           'Ravioli',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

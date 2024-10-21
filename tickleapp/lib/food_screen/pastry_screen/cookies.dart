@@ -210,7 +210,7 @@ class _cookiesScreenState extends State<CookiesScreen> {
                         // Add the cookies item to the cart
                         CartManager.instance.addItem(
                           'Cookies',
-                          totalPrice,
+                          basePrice,
                           'Piece', // Size for piece
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

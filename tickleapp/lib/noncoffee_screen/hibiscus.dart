@@ -377,7 +377,7 @@ class _hibiscusScreenState extends State<HibiscusScreen> {
                         // Add the selected item to the cart
                         CartManager.instance.addItem(
                           'Hibiscus Tea',
-                          totalPrice,
+                          basePrice,
                           isRegularSelected ? '12oz' : '16oz',
                           isHotSelected ? 'Hot' : 'Iced',
                           quantity,

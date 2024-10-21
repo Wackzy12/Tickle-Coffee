@@ -248,7 +248,7 @@ class _spaghettiScreenState extends State<SpaghettiScreen> {
                         // Add the spaghetti item to the cart
                         CartManager.instance.addItem(
                           'Spaghetti',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

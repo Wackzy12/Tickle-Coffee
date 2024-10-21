@@ -380,7 +380,7 @@ class _whiteMochaScreenState extends State<WhiteMochaScreen> {
                         // Adding the selected item to the cart
                         CartManager.instance.addItem(
                           'Mocha',
-                          totalPrice,
+                          basePrice,
                           size,
                           type,
                           quantity,

@@ -280,7 +280,7 @@ class _cinnamonScreenState extends State<CinnamonScreen> {
                         // Add the cinnamon item to the cart
                         CartManager.instance.addItem(
                           'Cinnamon Roll',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

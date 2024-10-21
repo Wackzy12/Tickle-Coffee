@@ -280,7 +280,7 @@ class _applepieScreenState extends State<ApplepieScreen> {
                         // Add the apple pie item to the cart
                         CartManager.instance.addItem(
                           'Apple Pie',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Dessert', // Specify the type
                           quantity, // Pass the selected quantity

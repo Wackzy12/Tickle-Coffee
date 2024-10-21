@@ -375,7 +375,7 @@ class _LemonpeachScreenState extends State<LemonpeachScreen> {
                           (isRegularSelected || isLargeSelected)) {
                         CartManager.instance.addItem(
                           'Lemon Peach Tea',
-                          totalPrice,
+                          basePrice,
                           isRegularSelected ? '12oz' : '16oz',
                           isHotSelected ? 'Hot' : 'Iced',
                           quantity,

@@ -7,12 +7,18 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  // Function to update total price when item quantity changes
+  double _calculateTotalPrice() {
+    final cartItems = CartManager.instance.cartItems;
+    return cartItems.fold(
+      0,
+          (sum, item) => sum + (item['price'] * item['quantity']),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartItems = CartManager.instance.cartItems;
-
-    // Calculate total price of items in the cart
-    double totalPrice = cartItems.fold(0, (sum, item) => sum + item['price']);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +34,45 @@ class _CartScreenState extends State<CartScreen> {
                 final item = cartItems[index];
                 return ListTile(
                   title: Text('${item['name']} (${item['size']})'),
-                  subtitle: Text('${item['type']} - ₱${item['price']} , ${item['quantity']}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${item['type']} - ₱${item['price']} each'),
+                      Row(
+                        children: [
+                          // Quantity Decrease Button
+                          IconButton(
+                            icon: Icon(Icons.remove_circle_outline),
+                            onPressed: () {
+                              setState(() {
+                                if (item['quantity'] > 1) {
+                                  item['quantity']--;
+                                  // Update total price when quantity changes
+                                  _calculateTotalPrice();
+                                }
+                              });
+                            },
+                          ),
+                          // Display Quantity
+                          Text(
+                            '${item['quantity']}',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          // Quantity Increase Button
+                          IconButton(
+                            icon: Icon(Icons.add_circle_outline),
+                            onPressed: () {
+                              setState(() {
+                                item['quantity']++;
+                                // Update total price when quantity changes
+                                _calculateTotalPrice();
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                   trailing: IconButton(
                     icon: Icon(Icons.delete, color: Colors.red),
                     onPressed: () {
@@ -49,7 +93,7 @@ class _CartScreenState extends State<CartScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Total: ₱$totalPrice',
+              'Total: ₱${_calculateTotalPrice()}',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),

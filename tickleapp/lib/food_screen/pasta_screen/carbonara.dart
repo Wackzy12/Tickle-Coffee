@@ -281,7 +281,7 @@ class _carbonaraScreenState extends State<CarbonaraScreen> {
 
                         CartManager.instance.addItem(
                           'Carbonara',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Food', // Or you can have a more specific type if needed
                           quantity, // Pass the selected quantity

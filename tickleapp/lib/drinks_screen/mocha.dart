@@ -380,7 +380,7 @@ class _mochaScreenState extends State<MochaScreen> {
                         // Adding the selected item to the cart
                         CartManager.instance.addItem(
                           'Mocha',
-                          totalPrice,
+                          basePrice,
                           size,
                           type,
                           quantity,

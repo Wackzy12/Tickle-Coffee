@@ -382,7 +382,7 @@ class _AmericanoScreenState extends State<AmericanoScreen> {
 
                         CartManager.instance.addItem(
                           'Americano',
-                          totalPrice,
+                          basePrice,
                           size,
                           type,
                           quantity,

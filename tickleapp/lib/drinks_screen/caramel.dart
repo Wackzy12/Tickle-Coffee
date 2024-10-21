@@ -381,7 +381,7 @@ class _CaramelScreenState extends State<CaramelScreen> {
 
                         CartManager.instance.addItem(
                           'Caramel',
-                          totalPrice,
+                          basePrice,
                           size,
                           type,
                           quantity,

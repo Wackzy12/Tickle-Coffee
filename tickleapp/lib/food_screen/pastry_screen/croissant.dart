@@ -210,7 +210,7 @@ class _croissantScreenState extends State<CroissantScreen> {
                         // Add the croissant item to the cart
                         CartManager.instance.addItem(
                           'Croissant',
-                          totalPrice,
+                          basePrice,
                           'Piece', // Size for piece
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

@@ -210,7 +210,7 @@ class _chocolatScreenState extends State<ChocolatScreen> {
                         // Add the chocolat item to the cart
                         CartManager.instance.addItem(
                           'Pan Eu Chocolat',
-                          totalPrice,
+                          basePrice,
                           'Piece', // Size for piece
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

@@ -380,7 +380,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
                         // Add item to cart
                         CartManager.instance.addItem(
                           'Earl Grey Tea',
-                          totalPrice,
+                          basePrice,
                           isRegularSelected ? '12oz' : '16oz',
                           isHotSelected ? 'Hot' : 'Iced',
                           quantity,

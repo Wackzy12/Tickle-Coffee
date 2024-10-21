@@ -377,7 +377,7 @@ class _matchaScreenState extends State<MatchaScreen> {
                         // Add item to cart
                         CartManager.instance.addItem(
                           'Matcha Latte',
-                          totalPrice,
+                          basePrice,
                           isRegularSelected ? '12oz' : '16oz',
                           isHotSelected ? 'Hot' : 'Iced',
                           quantity,

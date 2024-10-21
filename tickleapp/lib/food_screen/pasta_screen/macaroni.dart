@@ -248,7 +248,7 @@ class _macaroniScreenState extends State<MacaroniScreen> {
                         // Add the macaroni item to the cart
                         CartManager.instance.addItem(
                           'Macaroni',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

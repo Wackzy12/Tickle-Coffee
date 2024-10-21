@@ -248,7 +248,7 @@ class _lasagnaScreenState extends State<LasagnaScreen> {
                         // Add the lasagna item to the cart
                         CartManager.instance.addItem(
                           'Lasagna',
-                          totalPrice,
+                          basePrice,
                           size,
                           'Food', // Specify the type
                           quantity, // Pass the selected quantity

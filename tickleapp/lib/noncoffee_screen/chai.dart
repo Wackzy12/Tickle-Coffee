@@ -381,7 +381,7 @@ class _ChaiScreenState extends State<ChaiScreen> {
                         // Adding the selected item to the cart
                         CartManager.instance.addItem(
                           'Chai',
-                          totalPrice,
+                          basePrice,
                           size,
                           type,
                           quantity,
