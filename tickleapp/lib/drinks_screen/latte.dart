@@ -347,7 +347,7 @@ class _latteScreenState extends State<LatteScreen> {
                         // Adding the selected item to the cart
                         CartManager.instance.addItem(
                           'Cafe Latte',
-                          basePrice,
+                          totalPrice,
                           size,
                           type,
                           quantity,

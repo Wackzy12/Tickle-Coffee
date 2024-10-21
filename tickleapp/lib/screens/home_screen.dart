@@ -7,17 +7,18 @@ import 'package:tickleapp/noncoffee_screen/matcha.dart';
 import '../drinks_screen/mocha.dart';
 import '../cart_screen/cart_screen.dart';
 import '../favorite_screen/favorites.dart';
+import '../search_screen/search.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  State<HomeScreen> createState() => _homeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _homeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _currentUser;
-  double _credits = 0.0;  // Changed to double to store the user's credit balance
+  double _credits = 0.0;
 
   @override
   void initState() {
@@ -25,7 +26,6 @@ class _homeScreenState extends State<HomeScreen> {
     _getCurrentUser();
   }
 
-  // Fetch the current logged-in user and retrieve credits
   void _getCurrentUser() {
     _currentUser = _auth.currentUser;
     if (_currentUser != null) {
@@ -37,14 +37,12 @@ class _homeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Fetch credits from Firestore
   Future<void> _fetchCredits() async {
     try {
       DocumentSnapshot userDoc = await _firestore.collection('Users').doc(_currentUser!.uid).get();
       if (userDoc.exists) {
         setState(() {
-          // Cast userDoc.data() to a Map<String, dynamic> and access the 'credits'
-          _credits = (userDoc.data() as Map<String, dynamic>)['credits']?.toDouble() ?? 0.0;  // Convert to double
+          _credits = (userDoc.data() as Map<String, dynamic>)['credits']?.toDouble() ?? 0.0;
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -64,21 +62,30 @@ class _homeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xFF112e12),
-        toolbarHeight: 110,
+        toolbarHeight: 80,
         automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Search Here',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchScreen()),
+                  );
+                },
+                child: TextField(
+                  enabled: false,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                    hintText: 'Search Here',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
@@ -130,7 +137,7 @@ class _homeScreenState extends State<HomeScreen> {
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            '₱${_credits.toStringAsFixed(2)}',  // Display the fetched credits with two decimal places
+                            '₱${_credits.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.bold,

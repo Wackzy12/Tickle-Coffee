@@ -80,7 +80,8 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
           ),
         ],
       ),
-      body: Stack(
+      body: SingleChildScrollView(
+        child: Stack(
         children: [
           Container(
             height: coffeeBackgroundHeight,
@@ -425,6 +426,7 @@ class _earlgreyScreenState extends State<EarlgreyScreen> {
             ),
           ),
         ],
+      ),
       ),
     );
   }

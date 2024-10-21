@@ -6,62 +6,44 @@ import '../noncoffee_screen/noncoffee_screen.dart';
 class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Color(0xFF112e12),
-        automaticallyImplyLeading: false,
-        title: Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Menu',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _buildMenuItem(
+            imagePath: 'assets/coffee_menu.jpg',
+            title: 'COFFEE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CoffeeScreen()),
+              );
+            },
           ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, // Centering items
-          children: [
-            _buildMenuItem(
-              imagePath: 'assets/coffee_menu.jpg',
-              title: 'COFFEE',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CoffeeScreen()),
-                );
-              },
-            ),
-            SizedBox(height: 20),
-            _buildMenuItem(
-              imagePath: 'assets/lemonade_menu.jpg',
-              title: 'NON-COFFEE',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NonCoffeeScreen()),
-                );
-              },
-            ),
-            SizedBox(height: 20),
-            _buildMenuItem(
-              imagePath: 'assets/pesto_menu.jpg',
-              title: 'TO EAT',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FoodScreen()),
-                );
-              },
-            ),
-          ],
-        ),
+          SizedBox(height: 20),
+          _buildMenuItem(
+            imagePath: 'assets/lemonade_menu.jpg',
+            title: 'NON-COFFEE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NonCoffeeScreen()),
+              );
+            },
+          ),
+          SizedBox(height: 20),
+          _buildMenuItem(
+            imagePath: 'assets/pesto_menu.jpg',
+            title: 'TO EAT',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FoodScreen()),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -72,29 +54,30 @@ class MenuScreen extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return GestureDetector(
-      onTap: onTap, // Trigger navigation when tapped
+      onTap: onTap,
       child: Card(
-        elevation: 4, // Shadow effect
+        color: Colors.white,
+        elevation: 4,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), // Rounded corners
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0), // Padding inside the card
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
               CircleAvatar(
-                radius: 50, // Adjusted radius for smaller image
+                radius: 50,
                 backgroundImage: AssetImage(imagePath),
                 backgroundColor: Colors.transparent,
               ),
-              SizedBox(width: 20), // Space between the image and text
+              SizedBox(width: 20),
               Expanded(
                 child: Text(
                   title,
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.black, // Adjusted text color for better contrast
-                    fontWeight: FontWeight.bold, // Bolder font for emphasis
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
